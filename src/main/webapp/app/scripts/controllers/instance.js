@@ -17,15 +17,22 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 		camundaService.caseInstance($routeParams.instanceId).then(function(instance) {
 			// load all versions of the same key
 			$scope.selectedInstance = instance;
-			console.log($scope.selectedInstance);
+//			console.log($scope.selectedInstance);
 
 			camundaService.caseIntanceVariables($scope.selectedInstance.id).then(function(variables) {
 //				console.log(variables);
 				$scope.caseInstanceVariables = variables; 
 			});
 			
+			// executions
 			camundaService.caseExecutions($scope.selectedInstance.id).then(function(executions) {
 				$scope.caseInstanceExecutions = executions;
+			});
+			
+			// tasks
+			camundaService.tasks($scope.selectedInstance.id).then(function(tasks) {
+//				console.log(tasks);
+				$scope.tasks = tasks;
 			});
 		});
 	} else {

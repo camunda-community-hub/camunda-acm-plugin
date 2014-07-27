@@ -113,7 +113,7 @@ module.factory('camundaService', function($http) {
 			
 			var url = camundaEngineBaseUrl+ '/case-execution';
 			if (caseInstanceId) {
-				url += '?caseInstanceId=' + caseInstanceId;
+				url += '?caseInstanceId=' + caseInstanceId + '&enabled=true';
 			}
 			
 			var future = $http.get(url).then(function (response) {
@@ -122,6 +122,21 @@ module.factory('camundaService', function($http) {
 			return future;
 		},
 		
+		/*
+		 * Retrieve tasks
+		 */
+		tasks: function(caseInstanceId) {
+			
+			var url = camundaEngineBaseUrl+ '/task';
+			if (caseInstanceId) {
+				url += '?caseInstanceId=' + caseInstanceId;
+			}
+			
+			var future = $http.get(url).then(function (response) {
+				return response.data;
+			});
+			return future;
+		},
 		
 	};
 	
