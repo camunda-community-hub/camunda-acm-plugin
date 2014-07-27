@@ -1,0 +1,27 @@
+<div ng-controller="DefinitionsCtrl">
+	<h1>Case Definitions</h1>
+	<table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Key</th>
+                <th>Version</th>
+				<th>DeploymentId</th>
+				<th>Resource</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="caseDefinition in caseDefinitions">
+                <td>{{ caseDefinition.id }}</td>
+                <td>{{ caseDefinition.key }}</td>
+                <td>{{ caseDefinition.version }}</td>
+                <td>{{ caseDefinition.deploymentId }}</td>
+                <td>{{ caseDefinition.resource }}</td>
+            </tr>
+        </tbody>
+    </table>	
+	<input type="checkbox"
+       ng-model="latestVersionOnly"
+       name="latestVersionOnly"
+       ng-change="refresh()"><span>Show latest version only</span>
+</div>

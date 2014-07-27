@@ -1,0 +1,76 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Case Instance</h3>
+			<div>
+				<label>Id</label>
+				<span>{{ selectedInstance.id }}</span>
+			</div>
+			<div>
+				<label>Business Key</label>
+				<span>{{ selectedInstance.businessKey }}</span>
+			</div>
+			<div>
+				<label>Case DefinitionId</label>
+				<a ng-href="#/definition/{{ selectedInstance.caseDefinitionId }}"><span>{{ selectedInstance.caseDefinitionId }}</span></a>
+			</div>
+			<div>
+				<label>Active</label>
+				<span>{{ selectedInstance.active }}</span>
+			</div>
+			<div>
+				<label>Completed</label>
+				<span>{{ selectedInstance.completed }}</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Variables</h3>
+			<table class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th>Name</th>
+						<th>Value</th>
+						<th>Type</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="var in caseInstanceVariables" ng-show="caseInstanceVariables.length != 0">
+		                <td>{{ var }}</td>
+		                <td>{{ var.value }}</td>
+		                <td>{{ var.type }}</td>
+		            </tr>
+		            <tr ng-show="caseInstanceVariables.length == 0">
+		            	<td colspan="3">No case variables found.</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div> 
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Executions</h3>
+			<table class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th>Id</th>
+						<th>Active</th>
+						<th>Enabled</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="exec in caseInstanceExecutions" ng-show="caseInstanceExecutions.length != 0">
+		                <td>{{ exec.id }}</td>
+		                <td>{{ exec.active }}</td>
+		                <td>{{ exec.enabled }}</td>
+		            </tr>
+		            <tr ng-show="caseInstanceExecutions.length == 0">
+		            	<td colspan="3">No case executions found.</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div> 
+	</div>
+
+</div>

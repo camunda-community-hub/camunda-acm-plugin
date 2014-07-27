@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<!-- build:css(.) styles/vendor.css -->
+<!-- bower:css -->
+<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<!-- endbower -->
+<!-- endbuild -->
+<!-- build:css(.tmp) styles/main.css -->
+<link rel="stylesheet" href="styles/main.css">
+<!-- endbuild -->
+</head>
+<body ng-app="webappApp">
+	<!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+	<!-- Add your site or application content here -->
+	<div class="container">
+		<div class="header">
+			<ul class="nav nav-pills pull-right">
+				<li><a ng-href="#">Home</a></li>
+				<li><a ng-href="#/definitions">Definitions</a></li>
+				<li><a ng-href="#/instances">Instances</a></li>
+				<!-- Login -->
+				<li class="dropdown"><a id="dropdownMenuLogin"
+					data-toggle="dropdown" class="btn btn-info"><i
+						class="glyphicon glyphicon-folder-close"></i> New case <span
+						class="caret"></span></a>
+					<ul class="dropdown-menu" ng-controller="CaseCtrl">
+						<li style="width: 250px; padding: 5px;">
+							<form class="navbar-form" role="form" ng-submit="startCase()">
+								<div class="form-group">
+									<select ng-model="caseDefinition" id="caseDefinition"
+										class="form-control"
+										required="" ng-options="case.key + ':' + case.version + ' [' + case.resource + ']' for case in caseDefinitions">
+										<option value="">-- choose a case --</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary form-control">Start</button>
+								</div>
+							</form>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<h3 class="text-muted">ACM Cockpit</h3>
+		</div>
+
+		<div ng-view=""></div>
+
+		<div class="footer">
+			<p>
+				<span class="glyphicon glyphicon-heart"></span> from Holisticon
+			</p>
+		</div>
+	</div>
+
+	<!-- build:js(.) scripts/oldieshim.js -->
+	<!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+	<!-- endbuild -->
+
+	<!-- build:js(.) scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/json3/lib/json3.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-touch/angular-touch.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/services/camunda.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/instance.js"></script>
+	<script src="scripts/controllers/instances.js"></script>
+	<script src="scripts/controllers/case.js"></script>
+	<script src="scripts/controllers/definitions.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

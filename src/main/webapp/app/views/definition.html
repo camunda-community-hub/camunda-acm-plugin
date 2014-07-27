@@ -1,0 +1,65 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Case Definition</h3>
+			<div>
+				<label>Key</label>
+				<span>{{ selectedCase.key }}</span>
+			</div>
+			<div>
+				<label>Version</label>
+				<span>{{ selectedCase.version }}</span>
+			</div>
+			<div>
+				<label>Resource</label>
+				<span>{{ selectedCase.resource }}</span>
+			</div>
+			<div>
+				<label>Deployment Id</label>
+				<span>{{ selectedCase.deploymentId }}</span>
+			</div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<h3>Case Instances</h3>
+			<table class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th>Case Instance Id</th>
+						<th>Active</th>
+						<th>Completed</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="case in caseInstances" ng-show="caseInstances.length != 0">
+		                <td><a ng-href="#/instance/{{ case.id }}">{{ case.id }}</a></td>
+		                <td>{{ case.active }}</td>
+		                <td>{{ case.completed }}</td>
+		            </tr>
+		            <tr ng-show="caseInstances.length == 0">
+		            	<td colspan="3">No case instances found for applied filter.</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div> 
+		<div class="col-md-4">
+			<h3>Filter</h3>
+			<form>
+			    <div class="form-group">
+                    <label>
+                        <span>Version</span>
+                    </label>
+					<select ng-model="selectedCaseVersion" id="selectedCaseVersion"
+						class="form-control"
+						ng-change="versionChange()"
+						ng-options="caseDef.version for caseDef in caseDefinitionVersions">
+						<option value="">all versions</option>
+					</select>				
+                </div> 
+			</form>
+			Select version of deployed case to filter running instances.
+		</div>
+	</div>
+</div>
