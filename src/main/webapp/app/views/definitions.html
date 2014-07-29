@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="caseDefinition in caseDefinitions">
-                <td>{{ caseDefinition.id }}</td>
+                <td><a ng-href="#/definition/{{ caseDefinition.id }}"><span>{{ caseDefinition.id }}</span></a></td>
                 <td>{{ caseDefinition.key }}</td>
                 <td>{{ caseDefinition.version }}</td>
                 <td>{{ caseDefinition.deploymentId }}</td>

@@ -7,6 +7,10 @@
  */
 module.controller('InstanceCtrl', function($scope, $routeParams, camundaService) {
 
+	$scope.startExecution = function(caseExecutionId) {
+		console.log("Starting " + caseExecutionId);
+	};
+	
 
 	// only load if case definition id is selected.
 	if ($routeParams.instanceId) {	
@@ -17,11 +21,20 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 		camundaService.caseInstance($routeParams.instanceId).then(function(instance) {
 			// load all versions of the same key
 			$scope.selectedInstance = instance;
-//			console.log($scope.selectedInstance);
 
 			camundaService.caseIntanceVariables($scope.selectedInstance.id).then(function(variables) {
-//				console.log(variables);
-				$scope.caseInstanceVariables = variables; 
+				
+				var data = [];
+				
+				for (var key in variables) {
+					  if (variables.hasOwnProperty(key)) {
+					    data.push({
+					    	name : key, 
+					    	type: variables[key].type, 
+					    	value: variables[key].value });
+					  }
+				}
+				$scope.caseInstanceVariables = data; 
 			});
 			
 			// executions
@@ -31,12 +44,11 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 			
 			// tasks
 			camundaService.tasks($scope.selectedInstance.id).then(function(tasks) {
-//				console.log(tasks);
 				$scope.tasks = tasks;
 			});
 		});
 	} else {
 		$scope.selectedInstance = null;
 	}
-	
+
 });

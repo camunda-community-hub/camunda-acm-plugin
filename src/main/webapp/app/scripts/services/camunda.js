@@ -43,12 +43,10 @@ module.factory('camundaService', function($http) {
 		startCase: function(caseDefinitionId) {
 			console.log('Starting new case: ' + caseDefinitionId);			
 			
-			$http.post(camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/create').sucess(function (data) {
-				console.log('Started new case instance with id: ' + data.id);
-			}).error(function(status, data) {
-				console.log('Error status' + status);
-				console.log(data);
+			var future = $http.post(camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/create', '{}').then(function (response) {
+				return response.data;
 			});
+			return future;
 		},
 		
 		/*
@@ -67,6 +65,30 @@ module.factory('camundaService', function($http) {
 			}
 			
 			var future = $http.get(url).then(function (response) {
+				return response.data;
+			});
+			return future;
+		},
+
+		/*
+	     * Start new task execution for a given id (human task, process task, case task)
+	     */
+		startExecution: function(caseExecutionId) {
+			console.log('New execution: ' + caseDefinitionId);			
+			
+			var future = $http.post(camundaEngineBaseUrl + '/case-execution/' + caseExecutionId + '/manual-start', '{}').then(function (response) {
+				return response.data;
+			});
+			return future;
+		},
+
+		/*
+	     * Complete task execution for a given id (human task, process task, case task)
+	     */
+		completeExecution: function(caseExecutionId) {
+			console.log('Complete execution: ' + caseDefinitionId);			
+			
+			var future = $http.post(camundaEngineBaseUrl + '/case-execution/' + caseExecutionId + '/complete', '{}').then(function (response) {
 				return response.data;
 			});
 			return future;

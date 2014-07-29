@@ -15,7 +15,8 @@ var module = angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.bootstrap'
   ]);
 
 module.config(function ($routeProvider) {

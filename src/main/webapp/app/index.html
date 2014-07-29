@@ -21,7 +21,7 @@
     <![endif]-->
 
 	<!-- Add your site or application content here -->
-	<div class="container">
+	<div class="container" ng-controller="CaseCtrl">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
 				<li><a ng-href="#">Home</a></li>
@@ -32,7 +32,7 @@
 					data-toggle="dropdown" class="btn btn-info"><i
 						class="glyphicon glyphicon-folder-close"></i> New case <span
 						class="caret"></span></a>
-					<ul class="dropdown-menu" ng-controller="CaseCtrl">
+					<ul class="dropdown-menu">
 						<li style="width: 250px; padding: 5px;">
 							<form class="navbar-form" role="form" ng-submit="startCase()">
 								<div class="form-group">
@@ -52,7 +52,9 @@
 			</ul>
 			<h3 class="text-muted">ACM Cockpit</h3>
 		</div>
-
+		<div>
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+		</div>
 		<div ng-view=""></div>
 
 		<div class="footer">
@@ -81,6 +83,7 @@
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-touch/angular-touch.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 

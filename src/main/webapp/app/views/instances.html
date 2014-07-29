@@ -11,8 +11,8 @@
         </thead>
         <tbody>
             <tr ng-repeat="case in caseInstances">
-                <td>{{ case.id }}</td>
-                <td>{{ case.caseDefinitionId }}</td>
+                <td><a ng-href="#/instance/{{ case.id }}">{{ case.id }}</a></td>
+                <td><a ng-href="#/definition/{{ case.caseDefinitionId }}"><span>{{ case.caseDefinitionId }}</span></a></td>
                 <td>{{ case.active }}</td>
                 <td>{{ case.completed }}</td>
             </tr>
