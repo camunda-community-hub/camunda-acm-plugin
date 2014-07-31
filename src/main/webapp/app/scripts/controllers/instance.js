@@ -6,22 +6,23 @@
  * @description # InstanceCtrl Controller of the webappApp
  */
 module.controller('InstanceCtrl', function($scope, $routeParams, camundaService) {
-
-	$scope.startExecution = function(caseExecutionId) {
-		console.log("Starting " + caseExecutionId);
-	};
 	
+	// retrieve all case instances.
+	camundaService.caseInstances().then(function(data) {
+		$scope.caseInstances = data;
+	});
+	
+	// flag for active instances only
+	$scope.activeVersionsOnly = true;
 
-	// only load if case definition id is selected.
-	if ($routeParams.instanceId) {	
-
-		$scope.selectedInstance = null;
-		
-		// load the instance
-		camundaService.caseInstance($routeParams.instanceId).then(function(instance) {
+	
+	// retrieve a instance by instanceId
+	var loadCaseInstance = function(instanceId) {
+		camundaService.caseInstance(instanceId).then(function(instance) {
 			// load all versions of the same key
 			$scope.selectedInstance = instance;
 
+			// variables
 			camundaService.caseIntanceVariables($scope.selectedInstance.id).then(function(variables) {
 				
 				var data = [];
@@ -41,12 +42,31 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 			camundaService.caseExecutions($scope.selectedInstance.id).then(function(executions) {
 				$scope.caseInstanceExecutions = executions;
 			});
-			
+
 			// tasks
 			camundaService.tasks($scope.selectedInstance.id).then(function(tasks) {
 				$scope.tasks = tasks;
 			});
 		});
+	}
+
+
+	// only load if case definition id is selected.
+	if ($routeParams.instanceId) {	
+		
+		$scope.startExecution = function(caseExecutionId) {
+			camundaService.startExecution(caseExecutionId).then(function(result) {
+				$scope.ExecutionStartResult = result;
+				loadCaseInstance($routeParams.instanceId);
+			})
+		};
+		$scope.completeExecution = function(caseExecutionId) {
+			camundaService.completeExecution(caseExecutionId).then(function(result) {
+				loadCaseInstance($routeParams.instanceId);
+			})
+		};
+		
+		loadCaseInstance($routeParams.instanceId);
 	} else {
 		$scope.selectedInstance = null;
 	}

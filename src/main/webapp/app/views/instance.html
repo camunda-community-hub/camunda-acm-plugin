@@ -37,18 +37,18 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr ng-repeat="var in caseInstanceVariables" ng-show="caseInstanceVariables.length != 0">
+		            <tr ng-repeat="var in caseInstanceVariables">
 		                <td>{{ var.name }}</td>
 		                <td>{{ var.value }}</td>
 		                <td>{{ var.type }}</td>
 		            </tr>
-		            <tr ng-show="caseInstanceVariables.length == 0">
+		            <tr ng-hide="caseInstanceVariables.length">
 		            	<td colspan="3">No case variables found.</td>
 		            </tr>
 		        </tbody>
 		    </table>
 		</div> 
-		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-hide="true">
 			<h3>History</h3>
 			<div>TODO</div>
 		</div>
@@ -61,30 +61,59 @@
 		        <thead>
 		            <tr>
 		                <th>Id</th>
+		                <th>ActivityId</th>
 						<th>Active</th>
 						<th>Enabled</th>
 						<th>Operations</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr ng-repeat="exec in caseInstanceExecutions" ng-show="caseInstanceExecutions.length != 0">
+		            <tr ng-repeat="exec in filteredExecutions = ( caseInstanceExecutions | filter: { enabled:true })">
 		                <td>{{ exec.id }}</td>
+		                <td>{{ exec.activityId }}</td>
 		                <td>{{ exec.active }}</td>
 		                <td>{{ exec.enabled }}</td>
-		                <td><button class="btn btn-primary" ngClick="startExecution(exec)">Start</button></td>
+		                <td><button class="btn btn-primary" ng-click="startExecution(exec.id)">Start</button></td>
 		            </tr>
-		            <tr ng-show="caseInstanceExecutions.length == 0">
-		            	<td colspan="4">No case executions found.</td>
+		            <tr ng-hide="filteredExecutions.length">
+		            	<td colspan="5">No possible tasks.</td>
+		            </tr>
+		        </tbody>
+		    </table>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Running Tasks</h3>
+			<form>
+			<table class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th>Id</th>
+		                <th>ActivityId</th>
+						<th>Active</th>
+						<th>Enabled</th>
+						<th>Operations</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="exec in filteredExecutions = ( caseInstanceExecutions | filter: { active:true })">
+		                <td>{{ exec.id }}</td>
+		                <td>{{ exec.activityId }}</td>
+		                <td>{{ exec.active }}</td>
+		                <td>{{ exec.enabled }}</td>
+		                <td><button class="btn btn-primary" ng-click="completeExecution(exec.id)">Complete</button></td>
+		            </tr>
+		            <tr ng-hide="filteredExecutions.length">
+		            	<td colspan="5">No running tasks.</td>
 		            </tr>
 		        </tbody>
 		    </table>
 			</form>
 		</div> 
-	</div>
-
-	<div class="row">
 		<div class="col-md-12">
-			<h3>Tasks</h3>
+			<h3>Active User Tasks</h3>
 			<table class="table table-striped table-bordered">
 		        <thead>
 		            <tr>
@@ -92,26 +121,29 @@
 						<th>Description</th>
 						<th>Assignee</th>
 						<th>Due</th>
+						<th>FormKey</th>
 						<th>Priority</th>
 						<th>Operations</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr ng-repeat="task in tasks" ng-show="tasks.length != 0">
+		            <tr ng-repeat="task in tasks">
 						<!-- {{ task.caseExecutionId }} -->
 		                <td>{{ task.name }}</td>
 		                <td>{{ task.description }}</td>
 		                <td>{{ task.assignee }}</td>
+		                <td>{{ task.formKey }}</td>
 		                <td>{{ task.due }}</td>
 		                <td>{{ task.priority }}</td>
    		                <td><button type="submit" class="btn btn-primary form-control">Start</button></td>	                
 		            </tr>
-		            <tr ng-show="tasks.length == 0">
-		            	<td colspan="6">No tasks found.</td>
+		            <tr ng-hide="tasks.length">
+		            	<td colspan="7">No tasks found.</td>
 		            </tr>
 		        </tbody>
 		    </table>
-		</div> 
+		</div>		
 	</div>
+
 
 </div>

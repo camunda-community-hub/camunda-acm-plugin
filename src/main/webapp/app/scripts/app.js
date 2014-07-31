@@ -27,7 +27,7 @@ module.config(function ($routeProvider) {
       })
       .when('/instances', {
         templateUrl: 'views/instances.html',
-        controller: 'InstancesCtrl'
+        controller: 'InstanceCtrl'
       })
       .when('/instance/:instanceId', {
         templateUrl: 'views/instance.html',
@@ -35,13 +35,31 @@ module.config(function ($routeProvider) {
       })
       .when('/definitions', {
         templateUrl: 'views/definitions.html',
-        controller: 'DefinitionsCtrl'
+        controller: 'DefinitionCtrl'
       })
       .when('/definition/:caseDefinitionId', {
         templateUrl: 'views/definition.html',
-        controller: 'CaseCtrl'
+        controller: 'DefinitionCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+
+module.filter('instanceFilter', function() {
+	return function(instances, activeVersionsOnly) {
+		console.log(activeVersionsOnly)
+		if (!activeVersionsOnly) {
+			return instances;
+		}
+
+		var filtered = [];
+		angular.forEach(instances, function(instance) {
+			if (instance.active) {
+				filtered.push(instance);
+			}
+		});
+		return filtered;
+	};
+});
