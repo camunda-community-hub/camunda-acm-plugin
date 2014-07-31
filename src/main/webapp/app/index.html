@@ -83,7 +83,7 @@
 					</div>
 					<div>
 						<label>Business Key</label>
-						<input ng-model="businessKey" type="text" class="form-control" placeholder="Business Key"/>
+						<input ng-model="caseDefinition.businessKey" type="text" class="form-control" placeholder="Business Key"/>
 					</div>
 					<h3>Variables</h3>
 					<table class="table table-striped table-bordered">
@@ -92,16 +92,18 @@
 		                		<th>Name</th>
 								<th>Value</th>
 								<th>Type</th>
+								<th></th>
 		            		</tr>
 		        		</thead>
 		        		<tbody>
-		            		<tr ng-repeat="var in caseVariables">
+		            		<tr ng-repeat="var in caseDefinition.caseVariables">
 		                		<td><input ng-model="var.name" type="text" class="form-control" required placeholder="Variable name"/></td>
 		                		<td><input ng-model="var.value" type="text" class="form-control" required placeholder="Value"/></td>
 		                		<td><select ng-model="var.type" class="form-control" required ng-required ng-options="type for type in dataTypes"/></td>
+								<td><button class="btn btn-danger" ng-click="removeVariable(var)"><i class="glyphicon glyphicon-trash"></i></button></td>
 		            		</tr>
-		            		<tr ng-hide="caseVariables.length">
-		            			<td colspan="3">No case variables defined.</td>
+		            		<tr ng-hide="caseDefinition.caseVariables.length">
+		            			<td colspan="4">No case variables defined.</td>
 		            		</tr>
 		        		</tbody>
 		    		</table>

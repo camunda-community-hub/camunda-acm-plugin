@@ -54,16 +54,24 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 	// only load if case definition id is selected.
 	if ($routeParams.instanceId) {	
 		
+	  // starts execution of a task
 		$scope.startExecution = function(caseExecutionId) {
 			camundaService.startExecution(caseExecutionId).then(function(result) {
 				$scope.ExecutionStartResult = result;
 				loadCaseInstance($routeParams.instanceId);
 			})
 		};
+		
+		// completes execution of a task
 		$scope.completeExecution = function(caseExecutionId) {
 			camundaService.completeExecution(caseExecutionId).then(function(result) {
 				loadCaseInstance($routeParams.instanceId);
 			})
+		};
+		
+		// opens human task form
+		$scope.openTaskForm = function(task) {
+		  console.log(task);
 		};
 		
 		loadCaseInstance($routeParams.instanceId);

@@ -38,13 +38,13 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, $location, $m
     function(instance) {
       if (instance) {
         $scope.alerts.push({
-          msg : "New case instance with id " + instance.id + " has been sucessfully started.",
+          msg : "New case instance with id " + instance.id + " has been started successfully.",
           type : "success"
         });
         $location.path('/instance/' + instance.id);
       } else {
         $scope.alerts.push({
-          msg : "Failed to start instance.",
+          msg : "Failed to start new case instance.",
           type : "danger"
         });
       }
@@ -62,15 +62,19 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, $location, $m
    */
   var startCaseController = function($scope, $modalInstance, caseDefinition) {
 
+    $scope.dataTypes = [ 'String', 'Boolean', 'Integer', 'Date', 'Long' ];
+
     $scope.caseDefinition = caseDefinition;
-    $scope.businessKey = "1";
-    $scope.caseVariables = [];
+    $scope.caseDefinition.businessKey = '';
+    $scope.caseDefinition.caseVariables = [];
 
     // start a case.
     $scope.ok = function() {
-      console.log($scope.businessKey);
-      camundaService.startCase(caseDefinition.id, $scope.caseVariables, $scope.businessKey).then(function(instance) {
+      // console.log('BusinessKey' + $scope.businessKey);
+      camundaService.startCase(caseDefinition.id, $scope.caseDefinition.caseVariables, $scope.caseDefinition.businessKey).then(function(instance) {
         $modalInstance.close(instance);
+      }, function() {
+        $modalInstance.close();
       });
     };
 
@@ -78,15 +82,22 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, $location, $m
       $modalInstance.dismiss('cancel');
     };
 
+    // add new variable
     $scope.addVariable = function() {
-      $scope.caseVariables.push({
+      $scope.caseDefinition.caseVariables.push({
         name : '',
         value : '',
         type : 'String'
       });
     };
-    
-    $scope.dataTypes = ['String', 'Boolean', 'Integer', 'Date', 'Long'];
+
+    // remove variable
+    $scope.removeVariable = function(variable) {
+      var variableFilter = function(element) {
+        return element != variable;
+      }
+      $scope.caseDefinition.caseVariables = $scope.caseDefinition.caseVariables.filter(variableFilter);
+    }
   };
 
   /*

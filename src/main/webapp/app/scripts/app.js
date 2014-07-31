@@ -49,7 +49,7 @@ module.config(function ($routeProvider) {
 
 module.filter('instanceFilter', function() {
 	return function(instances, activeVersionsOnly) {
-		console.log(activeVersionsOnly)
+//		console.log(activeVersionsOnly)
 		if (!activeVersionsOnly) {
 			return instances;
 		}
