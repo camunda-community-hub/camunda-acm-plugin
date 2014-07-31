@@ -205,6 +205,27 @@ module.factory('camundaService', function($http) {
       return future;
     },
 
+    /*
+     * Retrieve task form
+     */
+    taskForm : function(taskId) {
+      var url = camundaEngineBaseUrl + '/task/' + taskId + '/form';
+      var future = $http.get(url).then(function(response) {
+        return response.data;
+      });
+      return future;
+    },
+
+    
+    /*
+     * retrieves Client
+     */
+    camundaApi : function() {
+      return new CamSDK.Client({
+        apiUri: camundaEngineBaseUrl
+      });
+
+    }
   };
 
 });

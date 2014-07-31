@@ -11,7 +11,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="caseDef in deployedCaseExecutions">
+					<tr ng-repeat="caseDef in deployedCaseDefinitions">
 						<td><a ng-href="#/definition/{{ caseDef.id }}">{{ caseDef.name }}</a></td>
 						<td>{{ caseDef.version }}</td>
 						<td>{{ caseDef.instanceCount }}</td>

@@ -8,8 +8,7 @@
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <!-- build:css(.) styles/vendor.css -->
 <!-- bower:css -->
-<link rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:css(.tmp) styles/main.css -->
@@ -22,17 +21,21 @@
     <![endif]-->
 
 	<!-- Add your site or application content here -->
-	<div class="container" ng-controller="DefinitionCtrl">
+	<div class="container" ng-controller="MainCtrl">
 		<header class="header">
 			<ul class="nav nav-pills pull-right">
 				<li><a ng-href="#">Home</a></li>
 				<li><a ng-href="#/definitions">Definitions</a></li>
 				<li><a ng-href="#/instances">Instances</a></li>
 				<!-- Process Start -->
-				<li class="dropdown"><a id="dropdownMenuLogin"
-					data-toggle="dropdown" class="btn btn-info"><i
-						class="glyphicon glyphicon-folder-close"></i> New case <span
-						class="caret"></span></a>
+				<li class="dropdown">
+					<a id="dropdownMenuStart"
+						data-toggle="dropdown" 
+						class="btn btn-success">
+						<i class="glyphicon glyphicon-folder-close"></i>
+						 New case 
+						<span class="caret"></span>
+					</a>
 					<ul class="dropdown-menu">
 						<li style="width: 400px; padding: 5px;">
 							<form class="navbar-form" role="form" ng-submit="open('lg')">
@@ -48,7 +51,46 @@
 								</div>
 							</form>
 						</li>
-					</ul></li>
+					</ul>
+					</li>
+				<!-- Login -->
+				<!-- 
+				<li class="dropdown" ng-controller="LoginCtrl">
+					<div ng-show="!loggedIn">
+						<a id="dropdownMenuLogin" data-toggle="dropdown" class="btn btn-info"><i class="glyphicon glyphicon-user"></i> Login <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+						  <li style="width: 250px; padding:5px;">
+								<form class="navbar-form" role="form" ng-submit="login()">
+									<div class="form-group">
+									    <div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-user color-blue"></i></span>
+											<input ng-model="usernameInput" id="usernameInput" placeholder="User name" class="form-control" oninvalid="setCustomValidity('Please enter a valid username!')" onchange="try{setCustomValidity('')}catch(e){}" required="" type="text">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>
+											<input ng-model="passwordInput" id="passwordInput" placeholder="password" class="form-control" oninvalid="setCustomValidity('Please enter a password!')" onchange="try { setCustomValidity('') } catch(e) {}" required="" type="password">
+										</div>
+									</div>
+									<div class="form-group">
+									<label class="error-message color-red">*Username &amp; password don't match!</label>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary form-control">Login</button>
+									</div>
+									<div class="form-group">
+										<span class="pull-right"><a href="#/forgot-password">Forgot Password?</a></span>
+									</div>
+								</form>
+							</li>
+						</ul>
+					</div>
+					<div ng-show="loggedIn">
+						<a id="dropdownMenu1" class="btn btn-inverse"><i class="glyphicon glyphicon-user"></i> <span ng-bind="currentUser.name"></span></a>
+					</div>
+				 -->
+				</li>
 			</ul>
 			<h3 class="text-muted">ACM Cockpit</h3>
 		</header>
@@ -148,9 +190,13 @@
 	<!-- endbuild -->
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/camunda/camunda-bpm-sdk-angular.js"></script>
 	<script src="scripts/app.js"></script>
 	<script src="scripts/services/camunda.js"></script>
+	<script src="scripts/services/login.js"></script>
 	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/task.js"></script>
+	<script src="scripts/controllers/login.js"></script>
 	<script src="scripts/controllers/instance.js"></script>
 	<script src="scripts/controllers/definition.js"></script>
 	<!-- endbuild -->

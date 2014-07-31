@@ -16,14 +16,15 @@ var module = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'cam.embedded.forms'
   ]);
 
 module.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'DefinitionCtrl'
       })
       .when('/instances', {
         templateUrl: 'views/instances.html',
@@ -40,6 +41,10 @@ module.config(function ($routeProvider) {
       .when('/definition/:caseDefinitionId', {
         templateUrl: 'views/definition.html',
         controller: 'DefinitionCtrl'
+      })
+      .when('/task/:taskId', {
+        templateUrl: 'views/task.html',
+        controller: 'TaskCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -63,3 +68,5 @@ module.filter('instanceFilter', function() {
 		return filtered;
 	};
 });
+
+

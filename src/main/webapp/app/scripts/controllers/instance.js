@@ -5,7 +5,7 @@
  * @name webappApp.controller:InstanceCtrl
  * @description # InstanceCtrl Controller of the webappApp
  */
-module.controller('InstanceCtrl', function($scope, $routeParams, camundaService) {
+module.controller('InstanceCtrl', function($scope, $routeParams, $location, camundaService) {
 	
 	// retrieve all case instances.
 	camundaService.caseInstances().then(function(data) {
@@ -59,19 +59,20 @@ module.controller('InstanceCtrl', function($scope, $routeParams, camundaService)
 			camundaService.startExecution(caseExecutionId).then(function(result) {
 				$scope.ExecutionStartResult = result;
 				loadCaseInstance($routeParams.instanceId);
-			})
+			});
 		};
 		
 		// completes execution of a task
 		$scope.completeExecution = function(caseExecutionId) {
 			camundaService.completeExecution(caseExecutionId).then(function(result) {
 				loadCaseInstance($routeParams.instanceId);
-			})
+			});
 		};
 		
 		// opens human task form
 		$scope.openTaskForm = function(task) {
-		  console.log(task);
+//		  console.log(task);
+		  $location.path('/task/' + task.id);
 		};
 		
 		loadCaseInstance($routeParams.instanceId);
