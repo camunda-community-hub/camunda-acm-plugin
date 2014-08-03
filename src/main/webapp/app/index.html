@@ -92,7 +92,7 @@
 				 -->
 				</li>
 			</ul>
-			<h3 class="text-muted">ACM Cockpit</h3>
+			<h3 class="text-muted">ACM & BPM Cockpit</h3>
 		</header>
 
 		<!-- Alerts -->
@@ -190,9 +190,12 @@
 	<!-- endbuild -->
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	
 	<script src="scripts/camunda/camunda-bpm-sdk-angular.js"></script>
 	<script src="scripts/app.js"></script>
-	<script src="scripts/services/camunda.js"></script>
+	<script src="scripts/services/camundaService.js"></script>
+	<script src="scripts/services/taskService.js"></script>
+	<script src="scripts/services/utilService.js"></script>
 	<script src="scripts/services/login.js"></script>
 	<script src="scripts/controllers/main.js"></script>
 	<script src="scripts/controllers/task.js"></script>

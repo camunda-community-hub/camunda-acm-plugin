@@ -12,9 +12,9 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
   /*
    * Definitions
    */
-  // retrieve case definitions.
   camundaService.caseDefinitions(true).then(function(data) {
 
+    // retrieve case definitions.
     $scope.caseDefinitions = data;
 
     data.forEach(function(definition) {
@@ -30,19 +30,37 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
     $scope.deployedCaseDefinitions = deployedCaseDefinitions;
   });
 
+  
+  camundaService.processDefinitions().then(function(data) {
+    // retrieve process definitions.
+    $scope.processDefinitions = data;
+  });
 
-  // flag for latest version only
-  $scope.latestVersionOnly = true;
+
+  // flag for latest case version only
+  $scope.latestCaseVersionOnly = true;
+  // flag for latest case version only
+  $scope.latestProcessVersionOnly = true;
   // flag for active instances only
   $scope.activeVersionsOnly = true;
 
   // retrieve case definitions.
-  $scope.refresh = function() {
+  $scope.refreshCase = function() {
     camundaService.caseDefinitions($scope.latestVersionOnly).then(function(data) {
       $scope.caseDefinitions = data;
     });
   };
-  $scope.refresh();
+  $scope.refreshCase();
+
+  // retrieve case definitions.
+  $scope.refreshProcess = function() {
+    camundaService.processDefinitions($scope.latestVersionOnly).then(function(data) {
+      $scope.processDefinitions = data;
+    });
+  };
+  
+  $scope.refreshCase();
+  $scope.refreshProcess();
 
   /*
    * Single definition display

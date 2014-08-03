@@ -669,13 +669,14 @@ var ProcessDefinition = AbstractClientResource.extend(
     });
   }
 },
+
 /** @lends  CamSDK.client.resource.ProcessDefinition */
 {
   /**
    * API path for the process instance resource
    */
   path: 'process-definition',
-
+  casePath: 'case-execution',
 
   /**
    * Get a list of process definitions
@@ -751,6 +752,59 @@ var ProcessDefinition = AbstractClientResource.extend(
     return this.http.get(this.path +'/'+ pointer +'/form-variables', {
       data: {
         variableNames: (data.names || []).join(',')
+      },
+      done: done || function() {}
+    });
+  },
+
+  /**
+   * Fetch the variables of a case definition
+   * @param  {Object.<String, *>} data
+   * @param  {String}             [data.id]     of the case
+   * @param  {String}             [data.key]    of the case
+   * @param  {Array}              [data.names]  of variables to be fetched
+   * @param  {Function}           [done]
+   */
+  caseFormVariables: function(data, done) {
+    var pointer = '';
+    if (data.key) {
+      pointer = 'key/'+ data.key;
+    }
+    else if (data.id) {
+      pointer = data.id;
+    }
+    else {
+      return done(new Error('Case definition task variables needs either a key or an id.'));
+    }
+
+    return this.http.get(this.casePath +'/'+ pointer +'/variables', { data : {}, done: done || function() {}});
+  },
+
+
+  /**
+   * Fetch the variables of a case definition
+   *
+   * @param  {Object.<String, *>} data
+   * @param  {String}             [data.id]     of the case
+   * @param  {String}             [data.key]    of the case
+   * @param  {Array}              [data.names]  of variables to be fetched
+   * @param  {Function}           [done]
+   */
+  caseSubmitForm: function(data, done) {
+    var pointer = '';
+    if (data.key) {
+      pointer = 'key/'+ data.key;
+    }
+    else if (data.id) {
+      pointer = data.id;
+    }
+    else {
+      return done(new Error('Case definition task variables needs either a key or an id.'));
+    }
+
+    return this.http.post(this.casePath +'/'+ pointer +'/submit-form', {
+      data: {
+        variables: data.variables
       },
       done: done || function() {}
     });
@@ -1376,17 +1430,29 @@ function CamundaForm(options) {
     this.client = new CamSDK.Client(options.clientConfig || {});
   }
 
-  if (!options.taskId && !options.processDefinitionId && !options.processDefinitionKey) {
-    throw new Error("Cannot initialize Taskform: either 'taskId' or 'processDefinitionId' or 'processDefinitionKey' must be provided");
-  }
-  this.taskId = options.taskId;
-  this.processDefinitionId = options.processDefinitionId;
-  this.processDefinitionKey = options.processDefinitionKey;
 
   this.formElement = options.formElement;
   this.containerElement = options.containerElement;
   this.formUrl = options.formUrl;
 
+  if (!options.type || options.type == 'process') {
+    this.type = 'process';
+    this.processDefinitionId = options.processDefinitionId;
+    this.processDefinitionKey = options.processDefinitionKey;  
+    if (!options.taskId && !options.processDefinitionId && !options.processDefinitionKey) {
+      throw new Error("Cannot initialize Taskform: either 'taskId' or 'processDefinitionId' or 'processDefinitionKey' must be provided");
+    }
+  } else {
+    this.type = 'case';
+    this.caseDefinitionId = options.caseDefinitionId;
+    this.caseDefinitionKey = options.caseDefinitionKey;
+    if (!options.taskId && !options.caseDefinitionId && !options.caseDefinitionKey) {
+      throw new Error("Cannot initialize Taskform: either 'taskId' or 'caseDefinitionId' or 'caseDefinitionKey' must be provided");
+    }
+  }
+  this.taskId = options.taskId;
+
+  
   if(!this.formElement && !this.containerElement) {
     throw new Error("CamundaForm needs to be initilized with either 'formElement' or 'containerElement'");
   }
@@ -1538,15 +1604,22 @@ CamundaForm.prototype.fetchVariables = function(done) {
     names: this.variableManager.variableNames()
   };
 
-  // pass either the taskId, processDefinitionId or processDefinitionKey
-  if (this.taskId) {
-    data.id = this.taskId;
-    this.client.resource('task').formVariables(data, done);
-  }
-  else {
-    data.id = this.processDefinitionId;
-    data.key = this.processDefinitionKey;
-    this.client.resource('process-definition').formVariables(data, done);
+  if (this.type == 'process') {  
+    // pass either the taskId, processDefinitionId or processDefinitionKey
+    if (this.taskId) {
+      data.id = this.taskId;
+      this.client.resource('task').formVariables(data, done);
+    }
+    else {
+      data.id = this.processDefinitionId;
+      data.key = this.processDefinitionKey;
+      this.client.resource('process-definition').formVariables(data, done);
+    }
+  } else if (this.type == 'case' ) {
+    data.type = this.type;
+    data.id = this.caseDefinitionId;
+    data.key = this.caseDefinitionKey;    
+    this.client.resource('process-definition').caseFormVariables(data, done);
   }
 };
 

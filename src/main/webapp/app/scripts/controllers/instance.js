@@ -11,9 +11,17 @@ module.controller('InstanceCtrl', function($scope, $routeParams, $location, camu
 	camundaService.caseInstances().then(function(data) {
 		$scope.caseInstances = data;
 	});
+
+	 // retrieve all case instances.
+  camundaService.processInstances().then(function(data) {
+    $scope.processInstances = data;
+  });
+
 	
 	// flag for active instances only
 	$scope.activeVersionsOnly = true;
+  // flag for active instances only
+  $scope.activeVersionsOnly2 = true;
 
 	
 	// retrieve a instance by instanceId
@@ -79,5 +87,4 @@ module.controller('InstanceCtrl', function($scope, $routeParams, $location, camu
 	} else {
 		$scope.selectedInstance = null;
 	}
-
 });
