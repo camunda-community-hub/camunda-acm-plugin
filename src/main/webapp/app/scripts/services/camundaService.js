@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name mainModule.service:camundaService
+ * @name module.service:camundaService
  * @description # camundaService Service camundaService
  */
 module.factory('camundaService', function($http, utilService) {
@@ -77,6 +77,19 @@ module.factory('camundaService', function($http, utilService) {
       var requestBody = {
         "modifications" : variables
       };      
+      return  $http.post(url, requestBody).then(function(response) {
+        return response.code;
+      });
+      
+    },
+    /*
+     * Update variables
+     */
+    updateProcessVariables : function(processInstanceId, variables) {
+      var url = camundaEngineBaseUrl + '/process-instance/' + processInstanceId + '/variables';
+      var requestBody = {
+        "modifications" : variables
+      };      
       console.log(requestBody);
       
       return  $http.post(url, requestBody).then(function(response) {
@@ -84,19 +97,41 @@ module.factory('camundaService', function($http, utilService) {
       });
       
     },
+
     /*
      * Retrieve case instances
      */
-    caseInstances : function(caseDefinitionKey, caseDefinitionId) {
+    caseInstances : function(caseDefinitionKey, caseDefinitionId, businessKey, active) {
 
       var url = camundaEngineBaseUrl + '/case-instance';
-
+      var sign = true;
+      
+      if (active) {
+        sign = false;
+        url += '?active=true'
+      } 
+      
       // load instances for specific case definition
       if (caseDefinitionKey) {
-        url += '?caseDefinitionKey=' + caseDefinitionKey;
-        if (caseDefinitionId) {
-          url += '&caseDefinitionId=' + caseDefinitionId;
+        if (sign) {
+          url += '?'
         }
+        url += 'caseDefinitionKey=' + caseDefinitionKey;
+      }
+
+      if (caseDefinitionId) {
+        if (sign) {
+          url += '?'
+        }
+        url += '&caseDefinitionId=' + caseDefinitionId;
+      }
+
+      
+      if (businessKey) {
+        if (sign) {
+          url += '?'
+        }
+        url += 'businessKey=' + businessKey;
       }
 
       return $http.get(url).then(function(response) {

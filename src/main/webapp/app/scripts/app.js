@@ -49,7 +49,6 @@ module.filter('instanceFilter', function() {
       return instances;
     }
 
-    console.log(instances);
     var filtered = [];
     angular.forEach(instances, function(instance) {
       if (instance.hasOwnProperty("active") && instance.active) {

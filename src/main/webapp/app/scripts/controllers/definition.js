@@ -13,6 +13,7 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
    */
   camundaService.caseDefinitions(true).then(function(data) {
 
+    $scope.caseDefinitions = data;
     // retrieve case definitions.
     data.forEach(function(definition) {
       camundaService.caseInstanceCount(definition.id).then(function(result) {
@@ -72,7 +73,6 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
       $scope.selectedCaseVersion = caseDef;
 
       // load all versions of the same key
-      console.log($scope.selectedCase);
       camundaService.caseDefinitions(false, $scope.selectedCase.key).then(function(versions) {
         $scope.caseDefinitionVersions = versions;
 
