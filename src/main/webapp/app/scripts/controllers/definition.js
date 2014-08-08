@@ -1,11 +1,10 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name webappApp.controller:DefinitionCtrl
  * @description # DefinitionCtrl Controller of the webappApp
  */
 module.controller('DefinitionCtrl', function($scope, $routeParams, camundaService) {
+'use strict';
 
   var deployedCaseDefinitions = [];
 
@@ -15,8 +14,6 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
   camundaService.caseDefinitions(true).then(function(data) {
 
     // retrieve case definitions.
-    $scope.caseDefinitions = data;
-
     data.forEach(function(definition) {
       camundaService.caseInstanceCount(definition.id).then(function(result) {
         deployedCaseDefinitions.push({

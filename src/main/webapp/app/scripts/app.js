@@ -7,7 +7,17 @@
  * 
  * Main module of the application.
  */
-var module = angular.module('webappApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'cam.embedded.forms' ]);
+var module = angular.module('webappApp', 
+    [ 
+      'ngAnimate', 
+      'ngCookies', 
+      'ngResource', 
+      'ngRoute', 
+      'ngSanitize', 
+      'ngTouch', 
+      'ui.bootstrap', 
+      'cam.embedded.forms' 
+    ]);
 
 module.config(function($routeProvider) {
   $routeProvider.when('/', {
