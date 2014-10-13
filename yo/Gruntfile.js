@@ -162,9 +162,9 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     wiredep: {
-      options: {
-        cwd: '<%= yeoman.app %>'
-      },
+//      options: {
+//        cwd: '<%= yeoman.app %>'
+//      },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
@@ -380,11 +380,11 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
+//    'clean:server',
+//    'concurrent:test',
+//    'autoprefixer',
+//    'connect:test',
+//    'karma'
   ]);
 
   grunt.registerTask('build', [

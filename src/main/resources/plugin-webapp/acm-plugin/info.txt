@@ -1,1 +1,1 @@
-FOO BAR
+This is an ACM Cockpit Plugin.

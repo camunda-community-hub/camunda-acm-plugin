@@ -6,23 +6,35 @@
 	<artifactId>cockpit-acm-plugin</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>cockpit-acm-plugin</name>
-
+	<properties>
+	    <plugin-name>acm-plugin</plugin-name>
+		<camunda-version>7.2.0-alpha5</camunda-version>
+		<yeomanProjectDirectory>yo</yeomanProjectDirectory>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>		
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.camunda.bpm.webapp</groupId>
 			<artifactId>camunda-webapp-core</artifactId>
-			<version>7.2.0-alpha2</version>
+			<version>${camunda-version}</version>
 		</dependency>
-
-		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.camunda.bpm</groupId>
 			<artifactId>camunda-engine</artifactId>
-			<version>7.2.0-alpha3</version>
-			<scope>test</scope>
+			<version>${camunda-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+			<version>3.0.2.Final</version>
+		</dependency>
+
+		<!-- test dependencies -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -46,11 +58,84 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.trecloux</groupId>
+				<artifactId>yeoman-maven-plugin</artifactId>
+				<version>0.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${yeomanProjectDirectory}/dist</directory>
+						</fileset>
+						<fileset>
+							<directory>${yeomanProjectDirectory}/.tmp</directory>
+						</fileset>
+						<fileset>
+							<directory>${yeomanProjectDirectory}/bower_components</directory>
+						</fileset>
+						<fileset>
+							<directory>${yeomanProjectDirectory}/node_modules</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>bower</executable>
+					<arguments>
+						<argument>install</argument>
+					</arguments>
+					<workingDirectory>${basedir}/${yeomanProjectDirectory}</workingDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/plugin-webapp/${plugin-name}/app</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${yeomanProjectDirectory}/dist</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,17 +1,26 @@
-<div>
-  <h1>Process Instances per Definition</h1>
-  <table class="table table-bordered table-hover table-condensed">
-    <thead>
-      <tr>
-        <th>Key</th>
-        <th>Instances</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-ng-repeat="count in processInstanceCounts">
-        <td>{{ count.key }}</td>
-        <td>{{ count.instanceCount }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container">
+    <h1>Deployed Cases</h1>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <table class="table table-striped table-bordered col-md-8">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Latest Version</th>
+                        <th>Running instances</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="caseDef in deployedCaseDefinitions">
+                        <td><a ng-href="#/definition/{{ caseDef.id }}">{{ caseDef.name }}</a></td>
+                        <td>{{ caseDef.version }}</td>
+                        <td>{{ caseDef.instanceCount }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            Displays case definitions, the latest deployed version number and number of running instances of the latest version.
+        </div>
+    </div>
 </div>

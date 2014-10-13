@@ -7,7 +7,7 @@
  * 
  * Main module of the application.
  */
-var module = angular.module('webappApp', 
+var module = angular.module('acmplugin', 
     [ 
       'ngAnimate', 
       'ngCookies', 
