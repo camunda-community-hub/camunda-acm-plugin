@@ -1,0 +1,107 @@
+<div class="ctn-fixed-view">
+
+	<div class="ctn-header">
+		<h1>
+			<span class="process-name-prefix"> <span>Case</span> <span>definition</span>
+			</span> {{ selectedCase.name || selectedCase.key }} <span class="badge badge-warning badge-suspended"
+				ng-show="selectedCase.suspended" tooltip="Currently suspended" tooltip-placement="top"> <i
+				class="icon-suspended white"></i>
+			</span>
+		</h1>
+		<div class="view-pills" id="cockpit.caseDefinition.view"></div>
+	</div>
+
+	<div class="ctn-content-container" ctn-collapsable-parent="sidebar">
+		<!-- tool bar -->
+		<div class="ctn-toolbar">
+
+			<!-- Toolbar actions are provided by plugins -->
+			<span ng-repeat="actionProvider in caseDefinitionActions">
+			     <view provider="actionProvider" vars="caseDefinitionVars" />
+			</span>
+		</div>
+
+		<!-- sidebar -->
+		<div class="ctn-column ctn-sidebar ctn-scroll" ctn-collapsable="left">
+			<div class="filters">
+			<h5>Filter</h5>
+				<form name="filterForm" novalidate ng-submit="filterChanged()">
+					<ul class="unstyled">
+						<li class="version-filter filter"><span class="name"> Version </span>
+							<div class="btn-group dropdown">
+								<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+								    {{ selectedCase.version }} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li ng-repeat="caseVersion in caseVersions">
+									   <a ng-href="#/case-definition/{{ caseVersion.id }}">{{ caseVersion.version }} </a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</form>
+
+				<div class="footer" ng-show="caseVersions.$loading">
+					<span> <i class="icon-loading"></i> Refreshing...</span>
+				</div>
+			</div>
+
+			<div>
+				<strong>Running Instances</strong>
+				<ul ng-show="instanceStatistics.$loaded">
+					<li><strong>Selected Version</strong> {{ instanceStatistics.current }}</li>
+					<li><strong>All Versions</strong> {{ instanceStatistics.all }}</li>
+				</ul>
+				<!-- 
+				 -->
+				<i ng-hide="instanceStatistics.$loaded" class="icon-loading"></i>
+			</div>
+
+			<a class="hide-collapsable pull-right"></a>
+		</div>
+	</div>
+
+	<div class="ctn-column ctn-content" ctn-collapsable-parent="tabs">
+
+		<!-- content top pane -->
+		<div class="ctn-row ctn-content-top">
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label>Key</label> <span>{{ selectedCase.key }}</span>
+				</div>
+				<div class="form-group">
+					<label>Latest Version</label> <span>{{ selectedCase.version}}</span>
+				</div>
+				<div class="form-group">
+					<label>Resource</label> <span>{{ selectedCase.resource }}</span>
+				</div>
+				<div class="form-group">
+					<label>Deployment Id</label> <span>{{ selectedCase.deploymentId }}</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- content bottom pane -->
+		<div class="ctn-row ctn-content-bottom ctn-tabbed" ctn-collapsable="bottom">
+
+			<!-- Tabs -->
+			<div ng-show="caseDefinitionTabs.length">
+
+				<!-- Navigation -->
+				<ul class="nav nav-tabs">
+					<li ng-class="{ active: selectedTab == tabProvider }" ng-repeat="tabProvider in caseDefinitionTabs">
+					   <a href ng-click="selectTab(tabProvider)">{{ tabProvider.label }}</a>
+					</li>
+				</ul>
+
+				<!-- Content -->
+				<div class="ctn-tabbed-content ctn-scroll">
+					<view provider="selectedTab" vars="caseDefinitionVars" />
+				</div>
+			</div>
+		</div>
+		
+		<a class="show-collapsable"></a>
+	</div>
+</div>

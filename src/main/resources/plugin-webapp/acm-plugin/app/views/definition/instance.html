@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Case Instance Id</th>
+			<th>Business Key</th>
+			<th>Active</th>
+			<th>Completed</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="case in filteredInstances = ( caseInstances | instanceFilter:activeVersionsOnly )">
+			<td><a ng-href="#/case-instance/{{ case.id }}">{{ case.id }}</a></td>
+			<td>{{ case.businessKey }}</td>
+			<td>{{ case.active }}</td>
+			<td>{{ case.completed }}</td>
+		</tr>
+		<tr ng-hide="filteredInstances.length">
+			<td colspan="4">No case instances found.</td>
+		</tr>
+	</tbody>
+</table>
+<input type="checkbox" ng-model="activeVersionsOnly" name="activeVersionsOnly">
+<span>Show active instances only.</span>

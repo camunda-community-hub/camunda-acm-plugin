@@ -1,0 +1,32 @@
+ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
+
+  var InstanceCtrl = [ '$scope', 'camundaService', 'dataDepend', function($scope, camundaService, dataDepend) {
+    'use strict';
+
+    // retrieve from parent scope
+    var caseData = $scope.caseData.newChild($scope);
+
+    // flag for instance display
+    $scope.activeVersionsOnly = true;
+
+    caseData.provide('caseInstances', [ 'definition', function(definition) {
+      return camundaService.caseInstances(definition.key, definition.id);
+    } ]);
+
+    caseData.observe([ 'caseInstances', function(caseInstances) {
+      $scope.caseInstances = caseInstances;
+    } ]);
+  } ];
+
+  module.config([ 'ViewsProvider', function(ViewsProvider) {
+    ViewsProvider.registerDefaultView('cockpit.caseDefinition.runtime.tab', {
+      id : 'case-instances-table',
+      label : 'Case Instances',
+      url : 'plugin://acm-plugin/static/app/views/definition/instance.html',
+      controller : InstanceCtrl,
+      priority : 20
+    });
+  } ]);
+
+  return module;
+});

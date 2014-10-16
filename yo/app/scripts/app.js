@@ -16,7 +16,6 @@ var module = angular.module('acmplugin',
       'ngSanitize', 
       'ngTouch', 
       'ui.bootstrap', 
-      'cam.embedded.forms' 
     ]);
 
 module.config(function($routeProvider) {
