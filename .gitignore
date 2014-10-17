@@ -1,1 +1,17 @@
+#### Eclipse
+.settings
+.classpath
+.project
+#### IDEA
+.idea
+*.iml
+#### osx
+.DS_Store
+#### Maven
 /target
+#### yo
+yo/node_modules/
+yo/dist/
+.tmp
+.sass-cache
+yo/bower_components/

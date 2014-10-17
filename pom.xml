@@ -111,4 +111,17 @@
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
+
+
+<!-- remove once 
+https://github.com/holisticon/camunda-acm-plugin/issues/9
+is fixed
+-->
+<repositories>
+  <repository>
+    <id>camunda-bpm-nexus</id>
+    <name>camunda-bpm-nexus</name>
+    <url>https://app.camunda.com/nexus/content/groups/public</url>
+  </repository>
+</repositories>
 </project>
