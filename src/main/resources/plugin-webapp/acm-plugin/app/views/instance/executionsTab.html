@@ -1,0 +1,46 @@
+<table class="table table-striped table-bordered">
+	<h4>Active Tasks</h4>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Operations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="exec in filteredExecutions = ( caseInstanceExecutions | filter: { active:true })">
+			<td>{{ exec.name }}</td>
+			<td>{{ exec.description }}</td>
+			<td>{{ exec.type }}</td>
+			<td><button class="btn btn-primary" ng-click="completeExecution(exec.id)" ng-show="exec.type == 'HUMANTASK'">Complete</button></td>
+		</tr>
+		<tr ng-hide="filteredExecutions.length">
+			<td colspan="4">No running tasks.</td>
+		</tr>
+	</tbody>
+</table>
+
+<h4>Possible Tasks</h4>
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Operations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="exec in filteredExecutions = ( caseInstanceExecutions | filter: { enabled:true })">
+			<td>{{ exec.name }}</td>
+			<td>{{ exec.description }}</td>
+			<td>{{ exec.type }}</td>
+			<td><button class="btn btn-primary" ng-click="startExecution(exec.id)">Start</button></td>
+		</tr>
+		<tr ng-hide="filteredExecutions.length">
+			<td colspan="4">No possible tasks.</td>
+		</tr>
+	</tbody>
+</table>
+

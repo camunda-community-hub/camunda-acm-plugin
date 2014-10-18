@@ -114,6 +114,7 @@ module.factory('camundaService', function($http, utilService) {
       // load instances for specific case definition
       if (caseDefinitionKey) {
         if (sign) {
+          sign = false;
           url += '?'
         }
         url += 'caseDefinitionKey=' + caseDefinitionKey;
@@ -121,6 +122,7 @@ module.factory('camundaService', function($http, utilService) {
 
       if (caseDefinitionId) {
         if (sign) {
+          sign = false;
           url += '?'
         }
         url += '&caseDefinitionId=' + caseDefinitionId;
@@ -129,11 +131,13 @@ module.factory('camundaService', function($http, utilService) {
       
       if (businessKey) {
         if (sign) {
+          sign = false;
           url += '?'
         }
         url += 'businessKey=' + businessKey;
       }
 
+      console.log(url);
       return $http.get(url).then(function(response) {
         return response.data;
       });

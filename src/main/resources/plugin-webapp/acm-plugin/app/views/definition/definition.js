@@ -65,70 +65,58 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
           } ]);
         }
 
+        /*
+         * Collect statistics
+         */
         $scope.instanceStatistics = caseData.observe([ 'instances.all', 'instances.current' ], function(all, current) {
-          if (all) {
             $scope.instanceStatistics.all = all.count;
-          }
-
-          if (current) {
             $scope.instanceStatistics.current = current.count;
+        });
+
+
+        
+        $scope.caseDefinitionVars = { read: [ 'definition', 'instances', 'caseData' ] };
+
+        $scope.caseDefinitionActions = Views.getProviders({ component : 'cockpit.caseDefinition.runtime.action'});
+        $scope.caseDefinitionTabs = Views.getProviders({ component : 'cockpit.caseDefinition.runtime.tab' });
+        
+
+        function setDefaultTab(tabs) {
+          var selectedTabId = search().detailsTab;
+          if (!tabs || !tabs.length) {
+            return;
           }
-        });
+          if (selectedTabId) {
+            var provider = Views.getProvider({ component : 'cockpit.caseInstance.runtime.tab', id : selectedTabId });
+            if (provider && tabs.indexOf(provider) != -1) {
+              $scope.selectedTab = provider;
+              return;
+            }
+          }
+          search.updateSilently({
+            detailsTab : null
+          });
+          $scope.selectedTab = tabs[0];
+        }
 
-        $scope.caseDefinitionActions = Views.getProviders({
-          component : 'cockpit.caseDefinition.runtime.action'
-        });
-
+        
         /*
          * Tabs handling
          */
-        $scope.caseDefinitionTabs = Views.getProviders({
-          component : 'cockpit.caseDefinition.runtime.tab'
-        });
         $scope.selectTab = function(tabProvider) {
           $scope.selectedTab = tabProvider;
           search.updateSilently({
             detailsTab : tabProvider.id
           });
         };
+        setDefaultTab($scope.caseDefinitionTabs);
 
-        function setDefaultTab(tabs) {
-          var selectedTabId = search().detailsTab;
-
-          if (!tabs || !tabs.length) {
-            return;
-          }
-
-          if (selectedTabId) {
-            var provider = Views.getProvider({
-              component : 'cockpit.caseInstance.runtime.tab',
-              id : selectedTabId
-            });
-
-            if (provider && tabs.indexOf(provider) != -1) {
-              $scope.selectedTab = provider;
-              return;
-            }
-          }
-
-          search.updateSilently({
-            detailsTab : null
-          });
-
-          $scope.selectedTab = tabs[0];
-        }
-
-        setDefaultTab($scope.selectedTab);
       } ];
 
   // register routing for case definitions
   module.config([ '$routeProvider', function($routeProvider) {
 
     $routeProvider.when('/case-definition/:caseDefinitionId', {
-      templateUrl : require.toUrl('../../api/cockpit/plugin/acm-plugin/static/app/views/definition/definition.html'),
-      controller : DefinitionCtrl,
-      authentication : 'required'
-    }).when('/case-definition', {
       templateUrl : require.toUrl('../../api/cockpit/plugin/acm-plugin/static/app/views/definition/definition.html'),
       controller : DefinitionCtrl,
       authentication : 'required'

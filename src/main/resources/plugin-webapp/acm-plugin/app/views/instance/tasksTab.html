@@ -1,0 +1,32 @@
+
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Assignee</th>
+			<th>Created</th>
+			<th>Due</th>
+			<th>Priority</th>
+			<th>Operations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="task in tasks">
+			<td>{{ task.name }}</td>
+			<td>{{ task.description }}</td>
+			<td>{{ task.assignee }}</td>
+			<td>{{ task.created }}</td>
+			<td>{{ task.due }}</td>
+			<td>{{ task.priority }}</td>
+			<td>
+				<!-- 
+                        <button class="btn" ng-click="openTaskForm(task)">Open</button>
+                       -->
+			</td>
+		</tr>
+		<tr ng-hide="tasks.length">
+			<td colspan="7">No tasks found.</td>
+		</tr>
+	</tbody>
+</table>

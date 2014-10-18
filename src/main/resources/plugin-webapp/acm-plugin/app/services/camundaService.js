@@ -101,15 +101,16 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
         var url = camundaEngineBaseUrl + '/case-instance';
         var sign = true;
-
+        
         if (active) {
           sign = false;
           url += '?active=true'
-        }
-
+        } 
+        
         // load instances for specific case definition
         if (caseDefinitionKey) {
           if (sign) {
+            sign = false;
             url += '?'
           }
           url += 'caseDefinitionKey=' + caseDefinitionKey;
@@ -117,13 +118,15 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
         if (caseDefinitionId) {
           if (sign) {
+            sign = false;
             url += '?'
           }
           url += '&caseDefinitionId=' + caseDefinitionId;
         }
-
+        
         if (businessKey) {
           if (sign) {
+            sign = false;
             url += '?'
           }
           url += 'businessKey=' + businessKey;
@@ -165,7 +168,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       /*
        * Retrieve case instance variables
        */
-      caseIntanceVariables : function(caseInstanceId) {
+      caseInstanceVariables : function(caseInstanceId) {
 
         return $http.get(camundaEngineBaseUrl + '/case-instance/' + caseInstanceId + '/variables').then(function(response) {
           return response.data;

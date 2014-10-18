@@ -1,7 +1,8 @@
 ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
   'use strict';
-
-  var DashboardCtrl = [ '$scope', '$routeParams', 'camundaService', function($scope, $routeParams, camundaService) {
+  
+  var DashboardCtrl = [ '$scope', '$routeParams', 'camundaService', 
+                function($scope, $routeParams, camundaService) {
     'use strict';
 
     /*
@@ -13,7 +14,8 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
       data.forEach(function(definition) {
         camundaService.caseInstanceCount(definition.id).then(function(result) {
           deployedCaseDefinitions.push({
-            'name' : definition.key,
+            'name' : definition.name,
+            'key' : definition.key,
             'id' : definition.id,
             'version' : definition.version,
             'instanceCount' : result.count
@@ -24,6 +26,7 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
     });
   } ];
 
+  
   // register controller and view
   module.config([ 'ViewsProvider', function Configuration(ViewsProvider) {
     ViewsProvider.registerDefaultView('cockpit.dashboard', {

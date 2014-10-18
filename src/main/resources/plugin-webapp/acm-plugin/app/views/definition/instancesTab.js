@@ -1,6 +1,6 @@
 ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
 
-  var InstanceCtrl = [ '$scope', 'camundaService', 'dataDepend', function($scope, camundaService, dataDepend) {
+  var InstanceCtrl = [ '$scope', 'camundaService', function($scope, camundaService) {
     'use strict';
 
     // retrieve from parent scope
@@ -22,7 +22,7 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
     ViewsProvider.registerDefaultView('cockpit.caseDefinition.runtime.tab', {
       id : 'case-instances-table',
       label : 'Case Instances',
-      url : 'plugin://acm-plugin/static/app/views/definition/instance.html',
+      url : 'plugin://acm-plugin/static/app/views/definition/instancesTab.html',
       controller : InstanceCtrl,
       priority : 20
     });
