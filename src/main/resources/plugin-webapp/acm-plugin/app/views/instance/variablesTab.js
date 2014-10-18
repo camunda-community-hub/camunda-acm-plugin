@@ -8,28 +8,31 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
 
     caseData.provide('variables', [ 'instance', function(instance) {
       // variables
-      camundaService.caseInstanceVariables(instance.id).then(function(variables) {
-        var data = [];
-        for ( var key in variables) {
-          if (variables.hasOwnProperty(key)) {
-            data.push({
-              name : key,
-              type : variables[key].type,
-              value : variables[key].value
-            });
-          }
-        }
-
-        console.log("Provider:");
-        console.log(data);
-        return data;
-      });
+      return camundaService.caseInstanceVariables(instance.id);
     } ]);
 
-    caseData.observe([ 'variables', function(variables) {
+    caseData.provide('variablesTransformed', [ 'variables', function(variables) {
+      var data = [];
+      for ( var key in variables) {
+        if (variables.hasOwnProperty(key)) {
+          data.push({
+            name : key,
+            type : variables[key].type,
+            value : variables[key].value
+          });
+        }
+      }
+
+      console.log("Provider:");
+      console.log(data);
+      return data;
+
+    } ]);
+
+    caseData.observe([ 'variablesTransformed', function(variablesTransformed) {
       console.log("Observer:");
-      console.log(variables);
-      $scope.caseInstanceVariables = variables;
+      console.log(variablesTransformed);
+      $scope.caseInstanceVariables = variablesTransformed;
     } ]);
 
   } ];

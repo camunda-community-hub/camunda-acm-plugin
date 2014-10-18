@@ -15,3 +15,4 @@ yo/dist/
 .tmp
 .sass-cache
 yo/bower_components/
+/bin
