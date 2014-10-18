@@ -4,7 +4,8 @@ This Camunda Cockpit plugin provides information about case definitions and case
 into the cockpit is constructed in the same way, as the corresponding process pages. 
 
 ![Dashboard](https://raw.githubusercontent.com/holisticon/camunda-acm-plugin/master/screenshots/plugin-dashboard.png)
-
+![Instance details](https://raw.githubusercontent.com/holisticon/camunda-acm-plugin/master/screenshots/plugin-instance-stepExecutions.png)
+![User tasks](https://raw.githubusercontent.com/holisticon/camunda-acm-plugin/master/screenshots/plugin-instance-userTasks.png)
 
 ## Features
 
