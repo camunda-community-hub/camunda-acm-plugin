@@ -71,8 +71,8 @@ public class DetailedCaseExecution implements Serializable {
   private String caseInstanceId;
   private boolean enabled;
   private boolean disabled;
-
   private boolean active;
+
   private Type type;
   private String name;
   private String description;

@@ -13,7 +13,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="caseDefinition in caseDefinitions">
-				<td><a ng-href="#/case-definition/{{ caseDefinition.id }}">{{ caseDefinition.name }}</a></td>
+				<td><a ng-href="#/case-definition/{{ caseDefinition.id }}">{{ caseDefinition.name || caseDefinition.id }}</a></td>
 				<td>{{ caseDefinition.version }}</td>
 				<td>{{ caseDefinition.instanceCount }}</td>
 			</tr>

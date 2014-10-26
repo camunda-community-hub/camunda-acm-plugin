@@ -13,22 +13,19 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
         for (var i = 0; i < variablesArray.length; i++) {
           var value = {};
-          Object.defineProperty(value, "value", {
-            __proto__ : Object,
+          Object.defineProperty(value, 'value', {
             enumerable : true,
             writeable : true,
             configurable : true,
             value : variablesArray[i].value
           });
-          Object.defineProperty(value, "type", {
-            __proto__ : Object,
+          Object.defineProperty(value, 'type', {
             enumerable : true,
             writeable : true,
             configurable : true,
             value : variablesArray[i].type
           });
           Object.defineProperty(variablesResult, variablesArray[i].name, {
-            __proto__ : Object,
             enumerable : true,
             writeable : true,
             configurable : true,
@@ -40,14 +37,15 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
       addVariableTypeString : function(variables) {
         for ( var v in variables) {
-          Object.defineProperty(variables[v], "type", {
-            __proto__ : Object,
+        if (!variables[v].hasOwnProperty('type')) {
+          Object.defineProperty(variables[v], 'type', {
             enumerable : true,
             writeable : true,
             configurable : true,
-            value : "String"
+            value : 'String'
           });
         }
+      }
         return variables;
       }
     };

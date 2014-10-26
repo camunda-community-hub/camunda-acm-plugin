@@ -46,6 +46,7 @@ public class CaseExecutionDetailedResource extends AbstractCockpitPluginResource
 
       // enrich information
       for (final DetailedCaseExecution detailed : detailedExecutions) {
+
         final ModelElementInstance plainItemModel = modelInstance.getModelElementById(detailed.getActivityId());
         if (plainItemModel instanceof PlanItemImpl) {
           final PlanItemImpl planItem = (PlanItemImpl) plainItemModel;

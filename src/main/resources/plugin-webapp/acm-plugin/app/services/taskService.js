@@ -7,7 +7,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       task : function(task) {
         return camundaService.taskForm(task.id).then(function(form) {
           task.form = form;
-          task.createdDate = task.created.replace("T", " ");
+          task.createdDate = task.created.replace('T', ' ');
           if (task.caseDefinitionId) {
             // CMMN Human Task
             return camundaService.caseDefinition(task.caseDefinitionId).then(function(caseDefinition) {
@@ -27,7 +27,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
               task.definedIn = processDefinition.name;
               return camundaService.processInstance(task.processInstanceId).then(function(processInstance) {
                 task.businessKey = processInstance.businessKey;
-                return camundaService.processVariables(task.caseInstanceId).then(function(variables) {
+                return camundaService.processVariables(task.processInstanceId).then(function(variables) {
                   task.variables = utilService.variableArrayToObject(variables);
                   return task;
                 });
@@ -50,9 +50,11 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
             return camundaService.completeTask(task.id);
           });
         } else if (task.processDefinitionId) {
-
+          return camundaService.updateProcessVariables(task.processInstanceId, task.variables).then(function() {
+            return camundaService.completeTask(task.id);
+          });
         } else {
-
+          console.log('Error completing a general task');
         }
       }
 

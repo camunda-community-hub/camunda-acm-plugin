@@ -1,17 +1,16 @@
 ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
-  module.factory('camundaService', [ '$http', 'utilService', function($http, utilService) {
+  module.factory('camundaService', [ '$http', 'utilService', 'Uri', function($http, utilService, Uri) {
     'use strict';
 
-    var jbossUrl = 'http://localhost:8080';
-    var camundaEngine = jbossUrl + '/engine-rest'
-    var camundaEngineBaseUrl = camundaEngine + '/engine/default';
+    /*
+     * Needed as long as case type is not delivered
+     */
+    var pluginExtensionBaseUrl = '/acm.rest/rest'
+    // var pluginExtensionBaseUrl = Uri.appUri("plugin://acm-plugin/:engine")
+    var camundaEngineBaseUrl = Uri.appUri('/engine-rest/engine/:engine'); 
 
     return {
-
-      jbossUrl : function() {
-        return jbossUrl;
-      },
       /*
        * Retrieve case definitions
        */
@@ -41,8 +40,8 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        */
       startCase : function(caseDefinitionId, caseVariables, businessKey) {
         var requestBody = {
-          "variables" : utilService.variableArrayToObject(caseVariables),
-          "businessKey" : businessKey
+          'variables' : utilService.variableArrayToObject(caseVariables),
+          'businessKey' : businessKey
         };
         return $http.post(camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/create', requestBody).then(function(response) {
           return response.data;
@@ -55,7 +54,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       completeTask : function(taskId, submitVariables) {
         var url = camundaEngineBaseUrl + '/task/' + taskId + '/complete';
         var requestBody = {
-          "variables" : submitVariables
+          'variables' : submitVariables
         };
         console.log(requestBody);
 
@@ -71,7 +70,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       updateCaseVariables : function(caseInstanceId, variables) {
         var url = camundaEngineBaseUrl + '/case-instance/' + caseInstanceId + '/variables';
         var requestBody = {
-          "modifications" : variables
+          'modifications' : variables
         };
         return $http.post(url, requestBody).then(function(response) {
           return response.code;
@@ -84,10 +83,9 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       updateProcessVariables : function(processInstanceId, variables) {
         var url = camundaEngineBaseUrl + '/process-instance/' + processInstanceId + '/variables';
         var requestBody = {
-          "modifications" : variables
+          'modifications' : variables
         };
-        console.log(requestBody);
-
+        // console.log(requestBody);
         return $http.post(url, requestBody).then(function(response) {
           return response.code;
         });
@@ -101,17 +99,17 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
 
         var url = camundaEngineBaseUrl + '/case-instance';
         var sign = true;
-        
+
         if (active) {
           sign = false;
-          url += '?active=true'
-        } 
-        
+          url += '?active=true';
+        }
+
         // load instances for specific case definition
         if (caseDefinitionKey) {
           if (sign) {
             sign = false;
-            url += '?'
+            url += '?';
           }
           url += 'caseDefinitionKey=' + caseDefinitionKey;
         }
@@ -119,15 +117,15 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
         if (caseDefinitionId) {
           if (sign) {
             sign = false;
-            url += '?'
+            url += '?';
           }
           url += '&caseDefinitionId=' + caseDefinitionId;
         }
-        
+
         if (businessKey) {
           if (sign) {
             sign = false;
-            url += '?'
+            url += '?';
           }
           url += 'businessKey=' + businessKey;
         }
@@ -159,7 +157,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve case instance
        */
       caseInstance : function(caseInstanceId) {
-
         return $http.get(camundaEngineBaseUrl + '/case-instance/' + caseInstanceId).then(function(response) {
           return response.data;
         });
@@ -169,7 +166,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve case instance variables
        */
       caseInstanceVariables : function(caseInstanceId) {
-
         return $http.get(camundaEngineBaseUrl + '/case-instance/' + caseInstanceId + '/variables').then(function(response) {
           return response.data;
         });
@@ -180,8 +176,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * task)
        */
       startExecution : function(caseExecutionId) {
-        console.log('New execution: ' + caseExecutionId);
-
+        // console.log('New execution: ' + caseExecutionId);
         return $http.post(camundaEngineBaseUrl + '/case-execution/' + caseExecutionId + '/manual-start', '{}').then(function(response) {
           return response.data;
         });
@@ -192,8 +187,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * task)
        */
       completeExecution : function(caseExecutionId) {
-        console.log('Complete execution: ' + caseExecutionId);
-
+        // console.log('Complete execution: ' + caseExecutionId);
         return $http.post(camundaEngineBaseUrl + '/case-execution/' + caseExecutionId + '/complete', '{}').then(function(response) {
           return response.data;
         });
@@ -216,12 +210,13 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       // },
 
       /*
-       * Retrieve case executions @state: enabled or running
+       * Retrieve case executions
        */
       caseExecutions : function(caseInstanceId) {
-
-        var url = 'http://localhost:8080/acm.rest/rest/case/' + caseInstanceId + '/tasks';
+        //var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
+        var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
         return $http.get(url).then(function(response) {
+          console.log(response.data);
           return response.data;
         });
       },
@@ -230,12 +225,10 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve tasks
        */
       tasks : function(caseInstanceId) {
-
         var url = camundaEngineBaseUrl + '/task';
         if (caseInstanceId) {
           url += '?caseInstanceId=' + caseInstanceId;
         }
-
         return $http.get(url).then(function(response) {
           return response.data;
         });
@@ -245,7 +238,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve task
        */
       task : function(taskId) {
-
         var url = camundaEngineBaseUrl + '/task/' + taskId;
         return $http.get(url).then(function(response) {
           return response.data;
@@ -292,9 +284,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve process instances
        */
       processInstances : function(processDefinitionKey, processDefinitionId) {
-
         var url = camundaEngineBaseUrl + '/process-instance';
-
         // load instances for specific case definition
         if (processDefinitionKey) {
           url += '?processDefinitionKey=' + processDefinitionKey;
@@ -302,7 +292,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
             url += '&processDefinitionId=' + processDefinitionId;
           }
         }
-
         return $http.get(url).then(function(response) {
           return response.data;
         });
@@ -337,7 +326,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
           return response.data;
         });
       },
-
     };
   } ]);
 
