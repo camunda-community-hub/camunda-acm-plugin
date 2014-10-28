@@ -16,3 +16,5 @@ yo/dist/
 .sass-cache
 yo/bower_components/
 /bin
+
+npm-debug.log
