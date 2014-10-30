@@ -1,11 +1,5 @@
+angular.module('acmplugin').controller('InstanceCtrl', ['$scope', '$routeParams', '$location', 'camundaService', function($scope, $routeParams, $location, camundaService) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name webappApp.controller:InstanceCtrl
- * @description # InstanceCtrl Controller of the webappApp
- */
-module.controller('InstanceCtrl', function($scope, $routeParams, $location, camundaService) {
 	
 	// retrieve all case instances.
 	camundaService.caseInstances().then(function(data) {
@@ -87,4 +81,4 @@ module.controller('InstanceCtrl', function($scope, $routeParams, $location, camu
 	} else {
 		$scope.selectedInstance = null;
 	}
-});
+}]);

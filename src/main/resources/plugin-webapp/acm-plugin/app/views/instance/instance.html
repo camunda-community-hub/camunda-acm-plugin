@@ -38,24 +38,15 @@
 			<!-- content top pane -->
 			<div class="ctn-row ctn-content-top">
 				<div class="ctn-column">
-					<div>
-						<label>Id</label> <span>{{ selectedInstance.id }}</span>
-					</div>
-					<div>
-						<label>Business Key</label> <span>{{ selectedInstance.businessKey }}</span>
-					</div>
-					<div>
-						<label>Case Definition Id</label> <a ng-href="#/case-definition/{{ selectedInstance.caseDefinitionId }}"><span>{{
-								selectedInstance.caseDefinitionId }}</span></a>
-					</div>
-					<div>
-						<label>Active</label> <span>{{ selectedInstance.active }}</span>
-					</div>
-					<div>
-						<label>Completed</label> <span>{{ selectedInstance.completed }}</span>
-					</div>
+					<dl class="dl-horizontal">
+						<dt>Id</dt> <dd>{{ selectedInstance.id }}</dd>
+						<dt>Business Key</dt> <dd>{{ selectedInstance.businessKey }}</dd>
+						<dt>Case Definition Id</dt> <dd><a ng-href="#/case-definition/{{ selectedInstance.caseDefinitionId }}"><span>{{
+								selectedInstance.caseDefinitionId }}</span></a></dd>
+						<dt>Active</dt> <dd>{{ selectedInstance.active }}</dd>
+						<dt>Completed</dt> <dd>{{ selectedInstance.completed }}</dd>
+					</dl>
 				</div>
-
 			</div>
 
 			<!-- content bottom pane -->

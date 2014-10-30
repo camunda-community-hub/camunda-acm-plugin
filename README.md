@@ -13,18 +13,24 @@ into the cockpit is constructed in the same way, as the corresponding process pa
  - Case Definition view
  - Filtering in Case Definition view
  - Case Instances of current Case Definition as a Tab in Case Definition View
+ - Case Instance View 
 
 ## Backlog
  
- - Case Instance view
  - Filtering in Case Instance view
  - Undeploy Case Definition Action
  
+## Installation & Building
+
+You currently need two components: the ACM Cockpit plugin and the camunda ACM REST api fix (https://github.com/holisticon/camunda-rest-api-fix). Checkout both of them, and put the plugin inside the camunda webapp (e.G. camunda-webapp-jboss)and deploy the fix as a ordinary WAR file. 
+
+
  
 ## Contributors
 
 *  _[Simon Zambrovski](https://github.com/zambrovski)_
 *  _[Jan Galinski](https://github.com/galinski)_
+*  _[Oliver Ochs](https://github.com/simonox)_
 
 ## License
 

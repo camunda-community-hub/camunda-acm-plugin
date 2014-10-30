@@ -1,11 +1,5 @@
+angular.module('acmplugin').service('loginService', ['$resource', '$http', function($resource, $http) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name webapp.service:loginService
- * @description # loginService Service loginService
- */
-module.service('loginService', function($resource, $http) {
 
   var loggedInUser;
 
@@ -21,4 +15,4 @@ module.service('loginService', function($resource, $http) {
     return loggedInUser;
   }
 
-});
+}]);

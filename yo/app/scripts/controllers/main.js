@@ -1,11 +1,5 @@
+angular.module('acmplugin').controller('MainCtrl', ['$scope', '$routeParams', '$location', '$modal', 'camundaService', function($scope, $routeParams, $location, $modal, camundaService) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name webappApp.controller:MainCtrl
- * @description # MainCtrl Controller of the webappApp
- */
-module.controller('MainCtrl', function($scope, $routeParams, $location, $modal, $log, camundaService) {
 		
   /*
    * Definitions
@@ -45,14 +39,14 @@ module.controller('MainCtrl', function($scope, $routeParams, $location, $modal, 
     function(instance) {
       if (instance) {
         $scope.alerts.push({
-          msg : "New case instance with id " + instance.id + " has been started successfully.",
-          type : "success"
+          msg : 'New case instance with id ' + instance.id + ' has been started successfully.',
+          type : 'success'
         });
         $location.path('/instance/' + instance.id);
       } else {
         $scope.alerts.push({
-          msg : "Failed to start new case instance.",
-          type : "danger"
+          msg : 'Failed to start new case instance.',
+          type : 'danger'
         });
       }
 
@@ -106,5 +100,8 @@ module.controller('MainCtrl', function($scope, $routeParams, $location, $modal, 
       $scope.caseDefinition.caseVariables = $scope.caseDefinition.caseVariables.filter(variableFilter);
     }
   };
+  
+  startCaseController.$inject = ['$scope', '$modalInstance'];
+  
 
-});
+}]);

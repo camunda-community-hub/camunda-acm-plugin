@@ -1,21 +1,10 @@
-'use strict';
+angular.module('acmplugin').factory('camundaService', ['$http', 'utilService', function($http, utilService) {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name module.service:camundaService
- * @description # camundaService Service camundaService
- */
-module.factory('camundaService', function($http, utilService) {
-
-  var jbossUrl = 'http://localhost:8080';
-  var camundaEngine = jbossUrl + '/engine-rest'
+  var camundaEngine = '/engine-rest';
   var camundaEngineBaseUrl = camundaEngine + '/engine/default';
 
   return {
-
-    jbossUrl : function() {
-      return jbossUrl;
-    },
     /*
      * Retrieve case definitions
      */
@@ -45,8 +34,8 @@ module.factory('camundaService', function($http, utilService) {
      */
     startCase : function(caseDefinitionId, caseVariables, businessKey) {
       var requestBody = {
-        "variables" : utilService.variableArrayToObject(caseVariables),
-        "businessKey" : businessKey
+        'variables' : utilService.variableArrayToObject(caseVariables),
+        'businessKey' : businessKey
       };
       return  $http.post(camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/create', requestBody).then(function(response) {
         return response.data;
@@ -59,7 +48,7 @@ module.factory('camundaService', function($http, utilService) {
     completeTask : function(taskId, submitVariables) {
       var url = camundaEngineBaseUrl + '/task/' + taskId + '/complete';
       var requestBody = {
-        "variables" : submitVariables
+        'variables' : submitVariables
       };      
       console.log(requestBody);
       
@@ -75,7 +64,7 @@ module.factory('camundaService', function($http, utilService) {
     updateCaseVariables : function(caseInstanceId, variables) {
       var url = camundaEngineBaseUrl + '/case-instance/' + caseInstanceId + '/variables';
       var requestBody = {
-        "modifications" : variables
+        'modifications' : variables
       };      
       return  $http.post(url, requestBody).then(function(response) {
         return response.code;
@@ -88,7 +77,7 @@ module.factory('camundaService', function($http, utilService) {
     updateProcessVariables : function(processInstanceId, variables) {
       var url = camundaEngineBaseUrl + '/process-instance/' + processInstanceId + '/variables';
       var requestBody = {
-        "modifications" : variables
+        'modifications' : variables
       };      
       console.log(requestBody);
       
@@ -217,7 +206,7 @@ module.factory('camundaService', function($http, utilService) {
      */
     caseExecutions : function(caseInstanceId) {
 
-      var url = 'http://localhost:8080/acm.rest/rest/case/' + caseInstanceId + '/tasks';
+      var url = '/acm.rest/rest/case/' + caseInstanceId + '/tasks';
       return $http.get(url).then(function(response) {
         return response.data;
       });
@@ -337,4 +326,4 @@ module.factory('camundaService', function($http, utilService) {
     },
 
   };
-});
+}]);

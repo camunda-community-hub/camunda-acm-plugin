@@ -5,16 +5,18 @@
 	<groupId>org.camunda.bpm.cockpit.plugin</groupId>
 	<artifactId>cockpit-acm-plugin</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>${packaging.type}</packaging>
 	<name>cockpit-acm-plugin</name>
 
 	<properties>
 		<plugin-name>acm-plugin</plugin-name>
 		<camunda-version>7.2.0-alpha5</camunda-version>
-		<yeomanProjectDirectory>yo</yeomanProjectDirectory>
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
+		<yeomanProjectDirectory>yo</yeomanProjectDirectory>
+		<yeomanTargetDirectory>${basedir}/target/${project.artifactId}-${project.version}</yeomanTargetDirectory>
+		<yeomanGruntTargetDir>${basedir}/target/yo</yeomanGruntTargetDir>
 	</properties>
 
 	<dependencies>
@@ -22,12 +24,14 @@
 			<groupId>org.camunda.bpm.webapp</groupId>
 			<artifactId>camunda-webapp-core</artifactId>
 			<version>${camunda-version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.camunda.bpm</groupId>
 			<artifactId>camunda-engine</artifactId>
 			<version>${camunda-version}</version>
-		</dependency>
+			<scope>provided</scope>
+		</dependency>		
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
@@ -67,20 +71,122 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!-- Not needed anymore <plugin> <groupId>com.github.trecloux</groupId> <artifactId>yeoman-maven-plugin</artifactId> <version>0.2</version> 
-				<executions> <execution> <goals> <goal>build</goal> </goals> </execution> </executions> </plugin> <plugin> <artifactId>maven-clean-plugin</artifactId> 
-				<version>2.6</version> <configuration> <filesets> <fileset> <directory>${yeomanProjectDirectory}/dist</directory> </fileset> 
-				<fileset> <directory>${yeomanProjectDirectory}/.tmp</directory> </fileset> <fileset> <directory>${yeomanProjectDirectory}/bower_components</directory> 
-				</fileset> <fileset> <directory>${yeomanProjectDirectory}/node_modules</directory> </fileset> </filesets> </configuration> 
-				</plugin> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> <version>1.3.2</version> 
-				<executions> <execution> <phase>generate-sources</phase> <goals> <goal>exec</goal> </goals> </execution> </executions> <configuration> 
-				<executable>bower</executable> <arguments> <argument>install</argument> </arguments> <workingDirectory>${basedir}/${yeomanProjectDirectory}</workingDirectory> 
-				</configuration> </plugin> <plugin> <artifactId>maven-resources-plugin</artifactId> <version>2.7</version> <executions> <execution> 
-				<id>copy-resources</id> <phase>prepare-package</phase> <goals> <goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${basedir}/target/classes/plugin-webapp/${plugin-name}/app</outputDirectory> 
-				<resources> <resource> <directory>${yeomanProjectDirectory}/dist</directory> </resource> </resources> </configuration> </execution> 
-				</executions> </plugin> -->
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<!--
+                This profile is used to build the 
+            // -->
+			<id>plugin</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<packaging.type>jar</packaging.type>
+			</properties>		
+		</profile>
+
+		<profile>
+			<id>webapp</id>
+			<properties>
+				<packaging.type>war</packaging.type>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.3</version>
+						<configuration>
+							<!-- A web.xml is no longer required. -->
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<!-- Add static content (AngularJS app) -->
+							<webResources>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>${yeomanGruntTargetDir}</directory>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>				
+					<plugin>
+						<groupId>com.github.trecloux</groupId>
+						<artifactId>yeoman-maven-plugin</artifactId>
+						<version>0.2</version> 
+						<executions>
+							<execution>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId> 
+						<version>2.6</version>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${yeomanGruntTargetDir}</directory>
+								</fileset> 
+								<fileset>
+									<directory>${yeomanProjectDirectory}/.tmp</directory>
+								</fileset>
+								<fileset>
+									<directory>${yeomanProjectDirectory}/bower_components</directory> 
+								</fileset>
+								<fileset>
+									<directory>${yeomanProjectDirectory}/node_modules</directory>
+								</fileset>
+							</filesets>
+						</configuration> 
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.3.2</version> 
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration> 
+							<executable>bower</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+							<workingDirectory>${basedir}/${yeomanProjectDirectory}</workingDirectory> 
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>2.7</version>
+						<executions>
+							<execution> 
+								<id>copy-resources</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${yeomanTargetDirectory}</outputDirectory> 
+									<resources>
+										<resource>
+											<directory>${yeomanGruntTargetDir}</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution> 
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<licenses>
 		<license>
@@ -113,15 +219,12 @@
 	</distributionManagement>
 
 
-<!-- remove once 
-https://github.com/holisticon/camunda-acm-plugin/issues/9
-is fixed
--->
-<repositories>
-  <repository>
-    <id>camunda-bpm-nexus</id>
-    <name>camunda-bpm-nexus</name>
-    <url>https://app.camunda.com/nexus/content/groups/public</url>
-  </repository>
-</repositories>
+	<!-- remove once https://github.com/holisticon/camunda-acm-plugin/issues/9 is fixed -->
+	<repositories>
+		<repository>
+			<id>camunda-bpm-nexus</id>
+			<name>camunda-bpm-nexus</name>
+			<url>https://app.camunda.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 </project>

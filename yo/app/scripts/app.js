@@ -7,7 +7,7 @@
  * 
  * Main module of the application.
  */
-var module = angular.module('acmplugin', 
+angular.module('acmplugin', 
     [ 
       'ngAnimate', 
       'ngCookies', 
@@ -16,9 +16,7 @@ var module = angular.module('acmplugin',
       'ngSanitize', 
       'ngTouch', 
       'ui.bootstrap', 
-    ]);
-
-module.config(function($routeProvider) {
+    ]).config(function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl : 'views/main.html',
     controller : 'DefinitionCtrl'
@@ -42,7 +40,7 @@ module.config(function($routeProvider) {
   });
 });
 
-module.filter('instanceFilter', function() {
+angular.module('acmplugin').filter('instanceFilter', function() {
   return function(instances, activeVersionsOnly) {
     if (!activeVersionsOnly) {
       return instances;

@@ -18,7 +18,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    dist: '../target/yo'
   };
 
   // Define the configuration for all the tasks
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     },
 
     // The actual grunt server settings
-    connect: {
+    connect: {	
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
@@ -77,10 +77,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
+              connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(appConfig.app)
             ];
           }
@@ -388,7 +385,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
+    // 'clean:dist',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

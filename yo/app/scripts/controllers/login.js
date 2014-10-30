@@ -1,11 +1,5 @@
+angular.module('acmplugin').controller('LoginCtrl', [ '$scope', 'loginService', function($scope, loginService) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name webapp.controller:LoginCtrl
- * @description # LoginCtrl Controller of the webapp
- */
-module.controller('LoginCtrl', function($scope, loginService) {
 
   $scope.loggedIn = false;
 
@@ -18,4 +12,4 @@ module.controller('LoginCtrl', function($scope, loginService) {
     $scope.loggedIn = false;
     $scope.currentUser = null;
   }
-});
+}]);

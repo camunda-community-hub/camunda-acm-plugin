@@ -1,9 +1,4 @@
-/**
- * @ngdoc function
- * @name webappApp.controller:DefinitionCtrl
- * @description # DefinitionCtrl Controller of the webappApp
- */
-module.controller('DefinitionCtrl', function($scope, $routeParams, camundaService) {
+angular.module('acmplugin').controller('DefinitionCtrl', ['$scope', '$routeParams', 'camundaService', function($scope, $routeParams, camundaService) {
 'use strict';
 
   var deployedCaseDefinitions = [];
@@ -85,5 +80,4 @@ module.controller('DefinitionCtrl', function($scope, $routeParams, camundaServic
       });
     });
   }
-
-});
+}]);

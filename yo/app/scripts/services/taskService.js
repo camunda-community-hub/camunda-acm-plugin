@@ -1,16 +1,10 @@
+angular.module('acmplugin').factory('taskService', ['camundaService', 'utilService', function(camundaService, utilService) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name mainModule.service:taskService
- * @description # taskService Service
- */
-module.factory('taskService', function(camundaService, utilService) {
   return {
     task : function(task) {
       return camundaService.taskForm(task.id).then(function(form) {
         task.form = form;
-        task.createdDate = task.created.replace("T", " ");
+        task.createdDate = task.created.replace('T', ' ');
         if (task.caseDefinitionId) {
           // CMMN Human Task
           return camundaService.caseDefinition(task.caseDefinitionId).then(function(caseDefinition) {
@@ -60,4 +54,4 @@ module.factory('taskService', function(camundaService, utilService) {
     }
   
   };
-});
+}]);

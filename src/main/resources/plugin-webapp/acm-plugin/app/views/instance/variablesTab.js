@@ -23,15 +23,15 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
         }
       }
 
-      console.log("Provider:");
-      console.log(data);
+  //    console.log("Provider:");
+  //    console.log(data);
       return data;
 
     } ]);
 
     caseData.observe([ 'variablesTransformed', function(variablesTransformed) {
-      console.log("Observer:");
-      console.log(variablesTransformed);
+//      console.log("Observer:");
+//      console.log(variablesTransformed);
       $scope.caseInstanceVariables = variablesTransformed;
     } ]);
 

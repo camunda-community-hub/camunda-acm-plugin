@@ -36,28 +36,10 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
        */
       caseData.observe('instance', function(instance) {
         $scope.selectedInstance = instance;
+		$scope.instance = dataDepend.create($scope);
       });
 
     }
-
-    // starts execution of a task
-    $scope.startExecution = function(caseExecutionId) {
-      camundaService.startExecution(caseExecutionId).then(function(result) {
-        $scope.ExecutionStartResult = result;
-      });
-    };
-
-    // completes execution of a task
-    $scope.completeExecution = function(caseExecutionId) {
-      camundaService.completeExecution(caseExecutionId).then(function(result) {
-      });
-    };
-
-    // opens human task form
-    $scope.openTaskForm = function(task) {
-      // console.log(task);
-      $location.path('/task/' + task.id);
-    };
 
     $scope.caseInstanceVars = {
       read : [ 'caseData', 'instance', 'tasks', 'executions' ]

@@ -1,11 +1,5 @@
+angular.module('acmplugin').controller('TaskCtrl', ['$scope', '$routeParams', '$location', '$modal', 'camundaService', function($scope, $routeParams, $location, $modal, camundaService) {
 'use strict';
-
-/**
- * @ngdoc function
- * @name webappApp.controller:MainCtrl
- * @description # MainCtrl Controller of the webappApp
- */
-module.controller('TaskCtrl', function($scope, $routeParams, $location, $modal, $log, camundaService) {
 
   if ($routeParams.taskId) {
 
@@ -15,7 +9,7 @@ module.controller('TaskCtrl', function($scope, $routeParams, $location, $modal, 
 
       $scope.taskId = taskId;
       var url = camundaService.jbossUrl() + taskFormPath.contextPath + taskFormPath.key;
-      console.log("URL" + url);
+      console.log('URL' + url);
       
 //      $scope.camForm = new CamSDK.Form({
 //        client : camundaService.camundaApi(),
@@ -38,5 +32,4 @@ module.controller('TaskCtrl', function($scope, $routeParams, $location, $modal, 
     });
 
   }
-
-});
+}]);

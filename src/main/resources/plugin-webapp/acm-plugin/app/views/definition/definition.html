@@ -62,22 +62,14 @@
 		<div class="ctn-column ctn-content" ctn-collapsable-parent="tabs">
 
 			<!-- content top pane -->
-			<div class="ctn-row ctn-content-top">
-
-				<ul>
-					<li class="form-group">
-						<label>Key</label> <span>{{ selectedCase.key }}</span>
-					</li>
-					<li class="form-group">
-						<label>Latest Version</label> <span>{{ selectedCase.version}}</span>
-					</li>
-					<li class="form-group">
-						<label>Resource</label> <span>{{ selectedCase.resource }}</span>
-					</li>
-					<li class="form-group">
-						<label>Deployment Id</label> <span>{{ selectedCase.deploymentId }}</span>
-					</li>
-				</ul>
+			<div class="ctn-row ctn-content-top">			
+				<dl class="dl-horizontal">
+					<dt>Name</dt> <dd>{{ selectedCase.name }}</dd>
+					<dt>Key</dt> <dd>{{ selectedCase.key }}</dd>
+					<dt>Latest Version</dt> <dd>{{ selectedCase.version}}</dd>
+					<dt>Resource</dt> <dd>{{ selectedCase.resource }}</dd>
+					<dt>Deployment Id</dt> <dd>{{ selectedCase.deploymentId }}</dd>
+				</dl>
 			</div>
 
 			<!-- content bottom pane -->
