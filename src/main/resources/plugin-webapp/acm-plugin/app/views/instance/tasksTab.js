@@ -18,7 +18,7 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
       label : 'User Tasks',
       url : 'plugin://acm-plugin/static/app/views/instance/tasksTab.html',
       controller : TasksCtrl,
-      priority : 30
+      priority : 10
     });
   } ]);
 

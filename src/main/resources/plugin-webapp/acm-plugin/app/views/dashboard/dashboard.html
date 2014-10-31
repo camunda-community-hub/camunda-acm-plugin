@@ -7,19 +7,19 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Latest Version</th>
 				<th>Running instances</th>
+				<th>Latest Version</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="caseDefinition in caseDefinitions">
 				<td><a ng-href="#/case-definition/{{ caseDefinition.id }}">{{ caseDefinition.name || caseDefinition.id }}</a></td>
-				<td>{{ caseDefinition.version }}</td>
 				<td>{{ caseDefinition.instanceCount }}</td>
+				<td>{{ caseDefinition.version }}</td>
 			</tr>
-			<tr ng-if="!caseDefinitions">
-				<td colspan="3"><i class="icon-loading"></i>Loading case definitions...</td>
-			</tr>
+      <tr ng-if="!caseDefinitions">
+        <td colspan="3"><i class="icon-loading"></i>Loading case definitions...</td>
+      </tr>
 			<tr ng-if="caseDefinitions && !caseDefinitions.length">
 				<td colspan="3">No case definitions deployed.</td>
 			</tr>

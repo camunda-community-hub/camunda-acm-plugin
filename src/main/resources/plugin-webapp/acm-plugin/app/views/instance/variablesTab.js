@@ -43,7 +43,7 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
       label : 'Variables',
       url : 'plugin://acm-plugin/static/app/views/instance/variablesTab.html',
       controller : VariablesCtrl,
-      priority : 10
+      priority : 20
     });
   } ]);
 

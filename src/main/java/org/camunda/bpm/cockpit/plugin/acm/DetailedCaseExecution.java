@@ -92,44 +92,32 @@ public class DetailedCaseExecution implements Serializable {
   }
 
   public void enrichType(final ModelElementInstance element) {
-    // unknown type, just to make sure the polymorph dispatch works.
-  }
-
-  public void enrichType(final HumanTaskImpl element) {
-    setType(DetailedCaseExecution.Type.HUMANTASK);
-  }
-
-  public void enrichType(final CaseTaskImpl element) {
-    setType(DetailedCaseExecution.Type.CASETASK);
-  }
-
-  public void enrichType(final CaseImpl element) {
-    setType(DetailedCaseExecution.Type.CASE);
-  }
-
-  public void enrichType(final StageImpl element) {
-    setType(DetailedCaseExecution.Type.STAGE);
-  }
-
-  public void enrichType(final ProcessTaskImpl element) {
-    setType(DetailedCaseExecution.Type.PROCESSTASK);
-  }
-
-  public void enrichType(final MilestoneImpl element) {
-    setType(DetailedCaseExecution.Type.MILESTONE);
-  }
-
-  public void enrichType(final EventListenerImpl element) {
-    setType(DetailedCaseExecution.Type.EVENTLISTENER);
+    if (element instanceof HumanTaskImpl) {
+      setType(DetailedCaseExecution.Type.HUMANTASK);
+    } else if (element instanceof CaseTaskImpl) {
+      setType(DetailedCaseExecution.Type.CASETASK);
+    } else if (element instanceof CaseImpl) {
+      setType(DetailedCaseExecution.Type.CASE);
+    } else if (element instanceof StageImpl) {
+      setType(DetailedCaseExecution.Type.STAGE);
+    } else if (element instanceof ProcessTaskImpl) {
+      setType(DetailedCaseExecution.Type.PROCESSTASK);
+    } else if (element instanceof MilestoneImpl) {
+      setType(DetailedCaseExecution.Type.MILESTONE);
+    } else if (element instanceof EventListenerImpl) {
+      setType(DetailedCaseExecution.Type.EVENTLISTENER);
+    } else {
+      // unknown type
+      throw new IllegalStateException("Unknown model element of type " + element.getClass().getName() + " detected.");
+    }
   }
 
   public void enrichLabels(final ModelElementInstance element) {
-    // unknown type, just to make sure the polymorph dispatch works.
-  }
-
-  public void enrichLabels(final PlanItemDefinitionImpl element) {
-    setName(element.getName());
-    setDescription(element.getDescription());
+    if (element instanceof PlanItemDefinitionImpl) {
+      final PlanItemDefinitionImpl pid = (PlanItemDefinitionImpl) element;
+      setName(pid.getName());
+      setDescription(pid.getDescription());
+    }
   }
 
   public String getId() {

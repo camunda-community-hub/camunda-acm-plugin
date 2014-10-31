@@ -8,9 +8,10 @@ import org.junit.Test;
 
 public class ACMPluginTest extends AbstractCockpitPluginTest {
 
-	@Test
-	public void testPluginDiscovery() {
-		CockpitPlugin samplePlugin = Cockpit.getRuntimeDelegate().getPluginRegistry().getPlugin("acm-plugin");
-		Assert.assertNotNull(samplePlugin);
-	}
+  @Test
+  public void testPluginDiscovery() {
+    final CockpitPlugin samplePlugin = Cockpit.getRuntimeDelegate().getPluginRegistry().getPlugin("acm-plugin");
+    Assert.assertNotNull(samplePlugin);
+  }
+
 }

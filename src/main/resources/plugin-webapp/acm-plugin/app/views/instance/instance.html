@@ -3,7 +3,8 @@
 		<h1>
 			<span class="process-name-prefix"> <span>Case</span> <span>instance</span>
 			</span> {{ caseDefinition.name || caseDefinition.key }} <span title="Case instance id, as it appears in the database">
-				&lt;{{ selectedInstance.id }}&gt; </span> <span class="badge badge-warning badge-suspended"
+				&lt;{{ selectedInstance.id }}&gt; </span> <span title="Business Key" ng-show="selectedInstance.businessKey">&lt;{{ selectedInstance.businessKey }}&gt;</span> 
+				<span class="badge badge-warning badge-suspended"
 				ng-show="caseInstance.suspended" tooltip="Currently suspended" tooltip-placement="top"> <i
 				class="icon-suspended white"></i>
 			</span>

@@ -6,8 +6,8 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
     /*
      * Needed as long as case type is not delivered
      */
-    var pluginExtensionBaseUrl = '/acm.rest/rest'
-    // var pluginExtensionBaseUrl = Uri.appUri("plugin://acm-plugin/:engine")
+    // var pluginExtensionBaseUrl = '/acm.rest/rest'
+    var pluginExtensionBaseUrl = Uri.appUri("plugin://acm-plugin/:engine")
     var camundaEngineBaseUrl = Uri.appUri('/engine-rest/engine/:engine'); 
 
     return {
@@ -208,7 +208,6 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
        * Retrieve case executions
        */
       caseExecutions : function(caseInstanceId) {
-        //var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
         var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
         return $http.get(url).then(function(response) {
           return response.data;
