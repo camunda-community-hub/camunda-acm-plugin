@@ -21,6 +21,11 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
         return camundaService.caseInstance($routeParams.instanceId);
       } ]);
 
+      caseData.provide('definition', [ 'instance', function(instance) {
+        // load the case definition
+        return camundaService.caseDefinition(instance.caseDefinitionId);
+      } ]);
+
       caseData.provide('executions', [ 'instance', function(instance) {
         // executions
         return camundaService.caseExecutions(instance.id);
@@ -34,10 +39,10 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
       /*
        * Observers
        */
-      caseData.observe('instance', function(instance) {
+      caseData.observe(['instance', 'definition', function(instance, definition) {
         $scope.selectedInstance = instance;
-		$scope.instance = dataDepend.create($scope);
-      });
+        $scope.selectedDefinition = definition;
+      }]);
 
     }
 
