@@ -13,7 +13,7 @@ public class RESTRootResource extends AbstractCockpitPluginRootResource {
   }
 
   @Path("{engineName}/case-execution-detailed/{id}")
-  public CaseExecutionDetailedResource getProcessInstanceResource(@PathParam("engineName") final String engineName, @PathParam("id") final String id) {
+  public CaseExecutionDetailedResource getCaseExecutionResource(@PathParam("engineName") final String engineName, @PathParam("id") final String id) {
     return subResource(new CaseExecutionDetailedResource(engineName, id), engineName);
   }
 

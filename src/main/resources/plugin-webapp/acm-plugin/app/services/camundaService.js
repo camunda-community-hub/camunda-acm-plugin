@@ -36,6 +36,13 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       },
 
       /*
+       * Retrieves diagram
+       */
+      caseDiagram: function(caseDefinitionId) {
+        return camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/diagram';
+      },
+
+      /*
        * Start new case for a given id
        */
       startCase : function(caseDefinitionId, caseVariables, businessKey) {

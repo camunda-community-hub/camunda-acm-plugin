@@ -62,16 +62,18 @@
 		<div class="ctn-column ctn-content" ctn-collapsable-parent="tabs">
 
 			<!-- content top pane -->
-			<div class="ctn-row ctn-content-top">			
-				<dl class="dl-horizontal">
+			<div class="ctn-row ctn-content-top">
+				<dl class="dl-horizontal" ng-hide="selectedCase.src">
 					<dt>Name</dt> <dd>{{ selectedCase.name }}</dd>
 					<dt>Key</dt> <dd>{{ selectedCase.key }}</dd>
 					<dt>Latest Version</dt> <dd>{{ selectedCase.version}}</dd>
 					<dt>Resource</dt> <dd>{{ selectedCase.resource }}</dd>
 					<dt>Deployment Id</dt> <dd>{{ selectedCase.deploymentId }}</dd>
 				</dl>
+				<div style="position:relative" ng-show="selectedCase.src"><img ng-src="{{ selectedCase.src }}" ></div>
 			</div>
 
+			
 			<!-- content bottom pane -->
 			<div class="ctn-row ctn-content-bottom ctn-tabbed" ctn-collapsable="bottom">
 

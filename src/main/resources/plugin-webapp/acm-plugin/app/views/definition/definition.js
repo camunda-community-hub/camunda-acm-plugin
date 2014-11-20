@@ -38,6 +38,10 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
             return camundaService.caseInstanceCount(definition.id);
           } ]);
 
+          caseData.provide('definitionDiagram', ['definition', function(definition) {
+            return camundaService.caseDiagram(definition.id);
+          } ]);
+
           /*
            * Observers
            */
@@ -45,6 +49,11 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
             $scope.selectedCase = definition;
           } ]);
 
+          caseData.observe([ 'definitionDiagram', 'definition', function(definitionDiagram) {
+            $scope.selectedCase.src = definitionDiagram;
+          } ]);
+
+          
           caseData.observe([ 'definitionsByKey', function(definitions) {
             $scope.caseVersions = definitions;
           } ]);

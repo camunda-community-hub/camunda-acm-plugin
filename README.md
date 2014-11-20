@@ -24,6 +24,7 @@ into the cockpit is constructed in the same way, as the corresponding process pa
 
 You currently need two components: the ACM Cockpit plugin and the camunda ACM REST api fix (https://github.com/holisticon/camunda-rest-api-fix). Checkout both of them, and put the plugin inside the camunda webapp (e.G. camunda-webapp-jboss)and deploy the fix as a ordinary WAR file. 
 
+Dependencies: org.camunda.bpm.camunda-engine org.camunda.bpm.model.camunda-xml-model org.camunda.bpm.model.camunda-cmmn-model
 
  
 ## Contributors
