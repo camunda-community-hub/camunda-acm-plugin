@@ -22,10 +22,21 @@ into the cockpit is constructed in the same way, as the corresponding process pa
  
 ## Installation & Building
 
-You currently need two components: the ACM Cockpit plugin and the camunda ACM REST api fix (https://github.com/holisticon/camunda-rest-api-fix). Checkout both of them, and put the plugin inside the camunda webapp (e.G. camunda-webapp-jboss)and deploy the fix as a ordinary WAR file. 
+In order to build the plugin, you only require Apache Maven. In order to build it, check out the source code and run `mvn clean install`. The resulting JAR file must be packed inside the Camunda Webapp WAR. The plugin requires at least Camunda 7.2.0 alpha6 for execution. (Tested on camunda-webapp-jboss-7.2.0-alpha6.war).
 
-Dependencies: org.camunda.bpm.camunda-engine org.camunda.bpm.model.camunda-xml-model org.camunda.bpm.model.camunda-cmmn-model
+After copying the JAR inside the Webapps WAR, you need to modify the MANIFEST.MF of the webapp WAR and put two further dependencies on it. My Manifest looks like following:
 
+     Manifest-Version: 1.0
+     Implementation-Vendor: camunda services GmbH
+     Implementation-Title: camunda BPM - webapp - JBoss
+     Implementation-Version: 7.2.0-alpha6
+     Implementation-Vendor-Id: org.camunda.bpm.webapp
+     Dependencies: org.camunda.bpm.camunda-engine,org.camunda.bpm.model.camun
+      da-cmmn-model,org.camunda.bpm.model.camunda-xml-model
+     Built-By: java
+     Build-Jdk: 1.7.0_67
+     Created-By: Apache Maven
+     Archiver-Version: Plexus Archiver
  
 ## Contributors
 
