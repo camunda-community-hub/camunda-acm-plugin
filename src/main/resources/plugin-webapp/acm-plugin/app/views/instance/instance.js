@@ -36,6 +36,10 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
         return camundaService.tasks(instance.id);
       } ]);
 
+      caseData.provide('definitionDiagram', ['definition', function(definition) {
+        return camundaService.caseDiagram(definition.id);
+      } ]);
+
       /*
        * Observers
        */
@@ -43,6 +47,10 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
         $scope.selectedInstance = instance;
         $scope.selectedDefinition = definition;
       }]);
+
+      caseData.observe([ 'definitionDiagram', 'definition', function(definitionDiagram) {
+        $scope.selectedInstance.src = definitionDiagram;
+      } ]);
 
     }
 

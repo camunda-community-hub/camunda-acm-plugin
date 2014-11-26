@@ -43,3 +43,24 @@
 		</tr>
 	</tbody>
 </table>
+
+<h4>Finished Tasks</h4>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Create Time</th>
+      <th>End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="history in filteredHistory = ( caseHistoryExecutions )">
+      <td>{{ history.caseActivityName }}</td>
+      <td>{{ history.createTime }}</td>
+      <td>{{ history.endTime }}</td>
+    </tr>
+    <tr ng-hide="filteredHistory.length">
+      <td colspan="3">No finished tasks.</td>
+    </tr>
+  </tbody>
+</table>

@@ -9,7 +9,16 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
     caseData.observe([ 'executions', function(executions) {
       $scope.caseInstanceExecutions = executions;
     } ]);
-	
+
+    caseData.provide( 'historyExecutions', ['instance', function(instance) {
+      return camundaService.caseHistory(instance.id);
+    } ]);
+
+    caseData.observe([ 'historyExecutions', function(historyExecutions) {
+      $scope.caseHistoryExecutions = historyExecutions;
+    } ]);
+
+    
 	// starts execution of a task
 	$scope.startExecution = function(caseExecutionId) {
 		camundaService.startExecution(caseExecutionId).then(function(result) {

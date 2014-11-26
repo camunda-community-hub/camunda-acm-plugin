@@ -39,7 +39,7 @@
 			<!-- content top pane -->
 			<div class="ctn-row ctn-content-top">
 				<div class="ctn-column">
-					<dl class="dl-horizontal">
+					<dl class="dl-horizontal" ng-hide="selectedInstance.src">
 						<dt>Id</dt> <dd>{{ selectedInstance.id }}</dd>
 						<dt>Business Key</dt> <dd>{{ selectedInstance.businessKey }}</dd>
 						<dt>Case Definition Id</dt> <dd><a ng-href="#/case-definition/{{ selectedInstance.caseDefinitionId }}"><span>{{
@@ -47,6 +47,7 @@
 						<dt>Active</dt> <dd>{{ selectedInstance.active }}</dd>
 						<dt>Completed</dt> <dd>{{ selectedInstance.completed }}</dd>
 					</dl>
+					<div style="position:relative" ng-show="selectedInstance.src"><img ng-src="{{ selectedInstance.src }}" ></div>
 				</div>
 			</div>
 

@@ -167,6 +167,15 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       },
 
       /*
+       * Retrieve case history
+       */
+      caseHistory : function(caseInstanceId) {
+        return $http.get(camundaEngineBaseUrl + '/history/case-activity-instance?caseInstanceId=' + caseInstanceId).then(function(response) {
+          return response.data;
+        });
+      },
+
+      /*
        * Retrieve case instance variables
        */
       caseInstanceVariables : function(caseInstanceId) {

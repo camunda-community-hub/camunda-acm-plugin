@@ -10,7 +10,7 @@
 
 	<properties>
 		<plugin-name>acm-plugin</plugin-name>
-		<camunda-version>7.2.0-alpha5</camunda-version>
+		<camunda-version>7.2.0</camunda-version>
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
