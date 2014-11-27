@@ -3,11 +3,20 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
   var ExecutionsCtrl = [ '$scope', 'camundaService', function($scope, camundaService) {
     'use strict';
 
+    /*
+     * Filter all running executions 
+     */
+    $scope.filterRunningActivities = function(execution) {
+      return execution.activityName != null && execution.active == true;
+    };
+    
     // retrieve from parent scope
     var caseData = $scope.caseData.newChild($scope);
 	
     caseData.observe([ 'executions', function(executions) {
       $scope.caseInstanceExecutions = executions;
+      
+      console.log($scope.caseInstanceExecutions);
     } ]);
 
     caseData.provide( 'historyExecutions', ['instance', function(instance) {

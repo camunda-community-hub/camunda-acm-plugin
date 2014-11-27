@@ -6,9 +6,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
     /*
      * Needed as long as case type is not delivered
      */
-    // var pluginExtensionBaseUrl = '/acm.rest/rest'
-    var pluginExtensionBaseUrl = Uri.appUri("plugin://acm-plugin/:engine")
-    var camundaEngineBaseUrl = Uri.appUri('/engine-rest/engine/:engine'); 
+    var camundaEngineBaseUrl = Uri.appUri('/engine-rest/engine/:engine');
 
     return {
       /*
@@ -38,7 +36,7 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
       /*
        * Retrieves diagram
        */
-      caseDiagram: function(caseDefinitionId) {
+      caseDiagram : function(caseDefinitionId) {
         return camundaEngineBaseUrl + '/case-definition/' + caseDefinitionId + '/diagram';
       },
 
@@ -204,31 +202,31 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
         });
       },
 
-      // /*
-      // * Retrieve case executions
-      // */
-      // caseExecutions: function(caseInstanceId) {
-      //      
-      // var url = camundaEngineBaseUrl+ '/case-execution';
-      // if (caseInstanceId) {
-      // url += '?caseInstanceId=' + caseInstanceId + '&enabled=true';
-      // }
-      //      
-      // var future = $http.get(url).then(function (response) {
-      // return response.data;
-      // });
-      // return future;
-      // },
-
       /*
        * Retrieve case executions
        */
       caseExecutions : function(caseInstanceId) {
-        var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
-        return $http.get(url).then(function(response) {
+
+        var url = camundaEngineBaseUrl + '/case-execution';
+        if (caseInstanceId) {
+          url += '?caseInstanceId=' + caseInstanceId;
+        }
+
+        var future = $http.get(url).then(function(response) {
           return response.data;
         });
+        return future;
       },
+
+//      /*
+//       * Retrieve case executions
+//       */
+//      caseExecutions : function(caseInstanceId) {
+//        var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
+//        return $http.get(url).then(function(response) {
+//          return response.data;
+//        });
+//      },
 
       /*
        * Retrieve tasks
