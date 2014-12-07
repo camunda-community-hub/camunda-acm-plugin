@@ -1,4 +1,4 @@
-# camunda ACM Cockpit plugin
+# ![camunda logo](http://camunda.github.io/camunda-bpm-assert/resources/images/camunda.png)&nbsp;camunda ACM Cockpit plugin  <a href="https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.cockpit.plugin/cockpit-acm-plugin"><img align="right" src="https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.cockpit.plugin/cockpit-acm-plugin/badge.svg"/></a>
 
 This Camunda Cockpit plugin provides information about case definitions and case instances deployed into Camunda BPM engine. It seamless integrates into the cockpit is constructed in the same way, as the corresponding process pages. 
 
