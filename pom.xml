@@ -21,6 +21,13 @@
 		<yeomanProjectDirectory>yo</yeomanProjectDirectory>
 		<yeomanTargetDirectory>${basedir}/target/${project.artifactId}-${project.version}</yeomanTargetDirectory>
 		<yeomanGruntTargetDir>${basedir}/target/yo</yeomanGruntTargetDir>
+		
+		<!-- This property must be present for the pom.xml to be recognized as a plugin -->
+		<camunda.plugin.category>Case Management</camunda.plugin.category>
+		
+		<camunda.plugin.screenshot>screenshots/plugin-instance-taskOverview.png</camunda.plugin.screenshot>
+		<camunda.plugin.testedOnVersion>7.2.0</camunda.plugin.testedOnVersion>
+		<camunda.plugin.language>EN</camunda.plugin.language>
 	</properties>
 
 	<dependencies>
