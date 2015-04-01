@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.camunda.bpm.cockpit.plugin</groupId>
@@ -7,16 +6,29 @@
 	<version>1.1-SNAPSHOT</version>
 	<packaging>${packaging.type}</packaging>
 	<name>cockpit-acm-plugin</name>
+	<description>This plugin provides information about case definitions and case instances deployed into Camunda BPM. It seamless integrates into Cockpit in the same way, as the corresponding process definition/instance pages.</description>
+
+	<parent>
+		<groupId>org.camunda</groupId>
+		<artifactId>camunda-release-parent</artifactId>
+		<version>2.5</version>
+		<!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
+		<relativePath />
+	</parent>
 
 	<properties>
 		<plugin-name>acm-plugin</plugin-name>
 		<camunda-version>7.2.0</camunda-version>
-		<encoding>UTF-8</encoding>
-		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
-		<project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
 		<yeomanProjectDirectory>yo</yeomanProjectDirectory>
 		<yeomanTargetDirectory>${basedir}/target/${project.artifactId}-${project.version}</yeomanTargetDirectory>
 		<yeomanGruntTargetDir>${basedir}/target/yo</yeomanGruntTargetDir>
+		
+		<!-- This property must be present for the pom.xml to be recognized as a plugin -->
+		<camunda.plugin.category>Case Management</camunda.plugin.category>
+		
+		<camunda.plugin.screenshot>screenshots/plugin-instance-taskOverview.png</camunda.plugin.screenshot>
+		<camunda.plugin.testedOnVersion>7.2.0</camunda.plugin.testedOnVersion>
+		<camunda.plugin.language>EN</camunda.plugin.language>
 	</properties>
 
 	<dependencies>
@@ -69,16 +81,6 @@
 	</dependencies>
 	<build>
 		<defaultGoal>clean install</defaultGoal>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 	<profiles>
@@ -104,7 +106,6 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.3</version>
 						<configuration>
 							<!-- A web.xml is no longer required. -->
 							<failOnMissingWebXml>false</failOnMissingWebXml>
@@ -131,7 +132,6 @@
 					</plugin>
 					<plugin>
 						<artifactId>maven-clean-plugin</artifactId> 
-						<version>2.6</version>
 						<configuration>
 							<filesets>
 								<fileset>
@@ -203,9 +203,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git@github.com:holisticon/camunda-acm-plugin.git</connection>
-		<url>scm:git:git@github.com:holisticon/camunda-acm-plugin.git</url>
-		<developerConnection>scm:git:git@github.com:holisticon/camunda-acm-plugin.git</developerConnection>
+		<connection>scm:git:git@github.com:camunda/camunda-acm-plugin.git</connection>
+		<url>scm:git:git@github.com:camunda/camunda-acm-plugin.git</url>
+		<developerConnection>scm:git:git@github.com:camunda/camunda-acm-plugin.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -226,7 +226,7 @@
 	</distributionManagement>
 
 
-	<!-- remove once https://github.com/holisticon/camunda-acm-plugin/issues/9 is fixed -->
+	<!-- remove once https://github.com/camunda/camunda-acm-plugin/issues/9 is fixed -->
 	<repositories>
 		<repository>
 			<id>camunda-bpm-nexus</id>
