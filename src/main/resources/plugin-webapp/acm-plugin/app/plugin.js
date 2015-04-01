@@ -1,6 +1,4 @@
-ngDefine('cockpit.plugin.acm-plugin', [
-  'module:cockpit.plugin.acm-plugin.services:./services/main',
-  'module:cockpit.plugin.acm-plugin.views:./views/main'
-], function(module) {
-  return module;
+define([ 'angular', './services/main', './views/main' ], function(angular) {
+  var ngModule = angular.module('cockpit.plugin.acm-plugin', [ 'cockpit.plugin.acm-plugin.services', 'cockpit.plugin.acm-plugin.views' ]);
+  return ngModule;
 });

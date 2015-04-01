@@ -1,5 +1,4 @@
-ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
-
+define(['angular'], function(angular) {
   var VariablesCtrl = [ '$scope', 'camundaService', function($scope, camundaService) {
     'use strict';
 
@@ -22,21 +21,17 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
           });
         }
       }
-
-  //    console.log("Provider:");
-  //    console.log(data);
       return data;
 
     } ]);
 
     caseData.observe([ 'variablesTransformed', function(variablesTransformed) {
-//      console.log("Observer:");
-//      console.log(variablesTransformed);
       $scope.caseInstanceVariables = variablesTransformed;
     } ]);
 
   } ];
 
+  var module = angular.module('cockpit.plugin.acm-plugin.views');
   module.config([ 'ViewsProvider', function(ViewsProvider) {
     ViewsProvider.registerDefaultView('cockpit.caseInstance.runtime.tab', {
       id : 'case-variables-table',

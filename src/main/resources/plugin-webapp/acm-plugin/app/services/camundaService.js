@@ -1,4 +1,6 @@
-ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
+define([ 'angular' ], function(angular) {
+
+  var module = angular.module('cockpit.plugin.acm-plugin.services');
 
   module.factory('camundaService', [ '$http', 'utilService', 'Uri', function($http, utilService, Uri) {
     'use strict';
@@ -218,15 +220,16 @@ ngDefine('cockpit.plugin.acm-plugin.services', function(module) {
         return future;
       },
 
-//      /*
-//       * Retrieve case executions
-//       */
-//      caseExecutions : function(caseInstanceId) {
-//        var url = pluginExtensionBaseUrl + '/case-execution-detailed/' + caseInstanceId;
-//        return $http.get(url).then(function(response) {
-//          return response.data;
-//        });
-//      },
+      // /*
+      // * Retrieve case executions
+      // */
+      // caseExecutions : function(caseInstanceId) {
+      // var url = pluginExtensionBaseUrl + '/case-execution-detailed/' +
+      // caseInstanceId;
+      // return $http.get(url).then(function(response) {
+      // return response.data;
+      // });
+      // },
 
       /*
        * Retrieve tasks

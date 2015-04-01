@@ -1,4 +1,4 @@
-ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
+define(['angular'], function(angular) {
 
   var InstanceCtrl = [ '$scope', '$routeParams', 'camundaService', 'dataDepend', 'Views', 'page', 'search', 
                function($scope, $routeParams, camundaService, dataDepend, Views, page, search) {
@@ -99,11 +99,13 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
 
   } ];
 
+  var module = angular.module('cockpit.plugin.acm-plugin.views'); 
   // register routing for case definitions
   module.config([ '$routeProvider', function($routeProvider) {
 
     $routeProvider.when('/case-instance/:instanceId', {
-      templateUrl : require.toUrl('../../api/cockpit/plugin/acm-plugin/static/app/views/instance/instance.html'),
+//      templateUrl : Uri.appUri('plugin://acm-plugin/static/app/views/instance/instance.html'),
+     templateUrl : require.toUrl('../../../api/cockpit/plugin/acm-plugin/static/app/views/instance/instance.html'),
       controller : InstanceCtrl,
       authentication : 'required'
     });

@@ -1,4 +1,4 @@
-ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
+define(['angular'], function(angular) {
 
   var InstanceCtrl = [ '$scope', 'camundaService', function($scope, camundaService) {
     'use strict';
@@ -18,6 +18,8 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
     } ]);
   } ];
 
+//use views module
+  var module = angular.module('cockpit.plugin.acm-plugin.views');
   module.config([ 'ViewsProvider', function(ViewsProvider) {
     ViewsProvider.registerDefaultView('cockpit.caseDefinition.runtime.tab', {
       id : 'case-instances-table',

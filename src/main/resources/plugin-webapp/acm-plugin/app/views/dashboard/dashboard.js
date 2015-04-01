@@ -1,4 +1,4 @@
-ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
+define(['angular'], function(angular) {
   'use strict';
   
   var DashboardCtrl = [ '$scope', '$routeParams', 'camundaService', 
@@ -26,6 +26,8 @@ ngDefine('cockpit.plugin.acm-plugin.views', function(module) {
     });
   } ];
 
+  // use views module
+  var module = angular.module('cockpit.plugin.acm-plugin.views');
   
   // register controller and view
   module.config([ 'ViewsProvider', function Configuration(ViewsProvider) {
