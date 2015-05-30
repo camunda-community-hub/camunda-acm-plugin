@@ -5,6 +5,10 @@ define(['angular'], function(angular) {
                 function($scope, $routeParams, camundaService) {
     'use strict';
 
+  $scope.tabs = [
+    { title:'List' }
+  ];
+  
     /*
      * Case Definitions
      */
