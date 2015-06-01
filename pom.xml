@@ -3,7 +3,7 @@
 
 	<groupId>org.camunda.bpm.cockpit.plugin</groupId>
 	<artifactId>cockpit-acm-plugin</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>${packaging.type}</packaging>
 	<name>cockpit-acm-plugin</name>
 	<description>This plugin provides information about case definitions and case instances deployed into Camunda BPM. It seamless integrates into Cockpit in the same way, as the corresponding process definition/instance pages.</description>
@@ -206,7 +206,7 @@
 		<connection>scm:git:git@github.com:camunda/camunda-acm-plugin.git</connection>
 		<url>scm:git:git@github.com:camunda/camunda-acm-plugin.git</url>
 		<developerConnection>scm:git:git@github.com:camunda/camunda-acm-plugin.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>1.1</tag>
 	</scm>
 
 	<!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
