@@ -28,6 +28,7 @@ In order to build the plugin, you will require Apache Maven only. Check out the 
 
 *  _[Simon Zambrovski](https://github.com/zambrovski)_
 *  _[Jan Galinski](https://github.com/galinski)_
+*  _[Martin Günther](https://github.com/margue)_
 *  _[Oliver Ochs](https://github.com/simonox)_
 
 ## License
