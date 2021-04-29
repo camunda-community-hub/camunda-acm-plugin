@@ -1,7 +1,7 @@
 ![](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.cockpit.plugin/cockpit-acm-plugin/badge.svg) [![](https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700)](https://github.com/camunda-community-hub/community) [![](https://img.shields.io/badge/Lifecycle-Deprecated-yellowgreen)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#deprecated-)
 
 
-# ![camunda logo](http://camunda.github.io/camunda-bpm-assert/resources/images/camunda.png)&nbsp;camunda ACM Cockpit plugin  <a href="https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.cockpit.plugin/cockpit-acm-plugin">
+# ![camunda logo](http://camunda.github.io/camunda-bpm-assert/resources/images/camunda.png)&nbsp;camunda ACM Cockpit plugin 
   
 This Camunda Cockpit plugin provides information about case definitions and case instances deployed into Camunda BPM engine. It seamless integrates into the cockpit is constructed in the same way, as the corresponding process pages. 
 
